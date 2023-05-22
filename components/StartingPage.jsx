@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Image } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { Text, Button, TextInput, Checkbox } from 'react-native-paper';
 
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#D9D9D9',
       padding: 10,
       marginVertical: 8,
-      marginHorizontal: 16,
+      marginHorizontal: 40,
     },
     title: {
       textAlign: 'center',
@@ -50,18 +50,29 @@ const styles = StyleSheet.create({
       alignSelf: 'stretch',
       lineHeight: 30,
     },
+    image: {
+      flex: 1,
+      width: 400,
+      height: 400,
+      resizeMode: 'stretch' ,
+      padding: 100,
+      marginVertical:20,
+    }
   });
 
 
 
 export function StartingPage() {
     return (
+      <View>
+        <Image style = {styles.image} source = {require('../assets/adaptive-icon.png')}>
+        </Image>
         <FlatList
         data = {DATA}
         renderItem = {({item}) => <Item title={item.title} />}
         keyExtractor={item => item.id}>
 
         </FlatList>
-
+      </View>
     );
 }
