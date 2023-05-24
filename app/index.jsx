@@ -1,16 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
+/* eslint-disable react/react-in-jsx-scope */
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { Text, Button, TextInput, Checkbox } from 'react-native-paper';
-import { StartingPage } from './components/StartingPage'
+import { StartingPage } from './StartingPage'
+import { supabase } from '../lib/supabase';
 
-export default function App() {
+export default function HomePage() {
   return (
-    <SafeAreaProvider >
       <SafeAreaView style = {styles.container}>
         <StartingPage />
       </SafeAreaView>
-    </SafeAreaProvider >
+
   );
 }
 

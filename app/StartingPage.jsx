@@ -1,7 +1,8 @@
+/* eslint-disable react/react-in-jsx-scope */
+import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, FlatList, Image } from 'react-native';
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-import { Text, Button, TextInput, Checkbox } from 'react-native-paper';
+import { StyleSheet, FlatList, Image } from 'react-native';
+import { Text, Button } from 'react-native-paper';
 
 
 
