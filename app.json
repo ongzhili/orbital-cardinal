@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "orbital-cardinal",
+    "scheme": "orbital-cardinal",
     "slug": "orbital-cardinal",
     "version": "1.0.0",
     "orientation": "portrait",

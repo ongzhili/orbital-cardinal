@@ -1,10 +1,9 @@
-import { View } from "react-native";
 import { useState } from "react";
-import { Text, TextInput, Button, ActivityIndicator } from "react-native-paper";
-import { Link } from "expo-router";
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../../../lib/supabase";
+import { View } from "react-native";
+import { Text, TextInput, ActivityIndicator, Button } from 'react-native-paper';
 
-export default function LoginPage() {
+export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -12,16 +11,19 @@ export default function LoginPage() {
 
     const handleSubmit = async () => {
         if (email == '') {
-            setErrMsg('e-mail cannot be empty!');
+            setErrMsg("email cannot be empty")
+            return;
         }
         if (password == '') {
-            setErrMsg('Password cannot be empty!')
+            setErrMsg("password cannot be empty")
+            return;
         }
         setLoading(true);
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await supabase.auth.signUp({ email, password });
         setLoading(false);
         if (error) {
             setErrMsg(error.message);
+            return;
         }
     }
 
@@ -43,9 +45,6 @@ export default function LoginPage() {
             <Button onPress={handleSubmit}>Submit</Button>
             {errMsg !== "" && <Text>{errMsg}</Text>}
             {loading && <ActivityIndicator />}
-            <Link href="/register">
-                <Button>Go to register</Button>
-            </Link>
         </View>
-    )
+    );
 }

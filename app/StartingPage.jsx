@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, FlatList, Image } from 'react-native';
 import { Text, Button } from 'react-native-paper';
+import { Link } from 'expo-router';
 
 
 
@@ -10,26 +11,30 @@ const DATA = [
     {
       id: '1',
       title: 'Play',
+      link: "play",
     },
     {
       id: '2',
       title: 'Community',
+      link: "./community/commHome",
     },
     {
       id: '3',
       title: 'Settings',
+      link: "settings",
     },
   ];
 
-function Item( {title} ) {
+function Item( {item} ) { 
     return (
         <View style = {styles.button}>
-            <Button style = {styles.button}
-            onPress = {() => 1}>
+          <Link href= {item.link}>
+            <Button style = {styles.button}>
                 <Text style = {styles.title}>
-                    {title}
+                    {item.title}
                 </Text>
             </Button>
+          </Link>
         </View>
     )
 }
@@ -70,10 +75,11 @@ export function StartingPage() {
         </Image>
         <FlatList
         data = {DATA}
-        renderItem = {({item}) => <Item title={item.title} />}
+        renderItem = {({item}) => <Item item={item} />}
         keyExtractor={item => item.id}>
 
         </FlatList>
+
       </View>
     );
 }

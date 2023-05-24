@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useRouter, useSegments } from "expo-router";
 
+
 const AuthContext = createContext({});
 
 function useProtectedRoute(user) {
@@ -10,10 +11,11 @@ function useProtectedRoute(user) {
 
     useEffect(() => {
         console.log(`useProtectedRoute useEffect called`);
-        const inAuthGroup = segments[0] === "(auth)";
+        const inAuthGroup = segments[1] === "(auth)";
         if (user == null && !inAuthGroup) {
-            router.replace("/login");
-        } else if (user && inAuthGroup) {
+            console.log(segments);
+            router.replace("./(auth)/login");
+        } else if ((user && inAuthGroup )) {
             router.replace('/');
         }
     }, [router, segments, user])
