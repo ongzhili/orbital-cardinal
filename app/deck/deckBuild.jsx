@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, FlatList, Image } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
@@ -27,8 +28,7 @@ const styles = StyleSheet.create({
 export default function deckBuild() {
     return (
       <View>
-        <Image style = {styles.image} source = {require('../assets/adaptive-icon.png')}>
-        </Image>
+        <Text>hello world</Text>
       </View>
     );
 }

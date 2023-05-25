@@ -11,12 +11,12 @@ const DATA = [
     {
       id: '1',
       title: 'Decks',
-      link: "deckPlay",
+      link: "./deck/deckPlay",
     },
     {
       id: '2',
       title: 'Create Decks',
-      link: "deckBuild",
+      link: "./deck/deckBuild",
     },
   ];
 
