@@ -11,7 +11,7 @@ const DATA = [
     {
       id: '1',
       title: 'Decks',
-      link: "./deck/deckPlay",
+      link: "./deck/deckSelect",
     },
     {
       id: '2',
