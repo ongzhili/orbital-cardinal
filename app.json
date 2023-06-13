@@ -16,16 +16,39 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.wyrkx.orbitalcardinal"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.wyrkx.orbitalcardinal"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "09ba8274-1bc0-4311-8ddd-0e132ecc029d"
+      }
+    },
+    "plugins": [
+			[
+				"expo-build-properties",
+				{
+					"android": {
+						"kotlinVersion": "1.6.10",
+						"compileSdkVersion": 33,
+						"targetSdkVersion": 33,
+						"packagingOptions": {
+							"pickFirst": ["**/libc++_shared.so"]
+						}
+					}
+				}
+			],
+			"@skam22/watermelondb-expo-plugin"
+		]
   }
 }
