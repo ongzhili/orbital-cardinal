@@ -14,9 +14,11 @@ function useProtectedRoute(user) {
         const inAuthGroup = segments[1] === "(auth)";
         if (user == null && !inAuthGroup) {
             console.log(segments);
-            router.replace("./(auth)/login");
+            router.replace("../community/(auth)/login");
         } else if ((user && inAuthGroup )) {
-            router.replace('/');
+            router.replace("/community/commHome");
+            console.log(segments);
+            console.log('a');
         }
     }, [router, segments, user])
 }

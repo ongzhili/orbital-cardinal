@@ -46,11 +46,8 @@ export default function LoginPage() {
             <Button onPress={handleSubmit}>Submit</Button>
             {errMsg !== "" && <Text>{errMsg}</Text>}
             {loading && <ActivityIndicator />}
-            <Link href="/register">
+            <Link href="./register">
                 <Button>Go to register</Button>
-            </Link>
-            <Link href="./StartingPage">
-                <Button>Continue Offline</Button>
             </Link>
         </View>
     )
