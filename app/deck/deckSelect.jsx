@@ -14,14 +14,14 @@ const SAMPLE_DECKS = [
         title: "Deck 1",
         deck :[
             {
-                id: 1,
-                question: 'What is 1 + 1',
-                answer: '2',
+                title: '1',
+                front: 'What is 1 + 1',
+                back: '2',
               },
               {
-                id: 2,
-                question: 'deck1q2',
-                answer: '4',
+                title: '2',
+                front: 'deck1q2',
+                back: '4',
               },
         ]
     },
@@ -29,14 +29,14 @@ const SAMPLE_DECKS = [
         title: "Deck 2",
         deck :[
             {
-                id: 1,
-                question: 'deck2q1',
-                answer: '1',
+              title: '1',
+                front: 'deck2q1',
+                back: '1',
               },
               {
-                id: 2,
-                question: 'deck2q2',
-                answer: '4',
+                title: '2',
+                front: 'deck2q2',
+                back: '4',
               },
         ]
     },
@@ -50,6 +50,7 @@ export function DeckRender({ item, setDeck, selected, onSelect }) {
     const handleDeckUpdate = () => {
         setDeck(item.deck);
         onSelect(item.title);
+        console.log(item.title);
       };
     
       const buttonStyle = selected ? styles.buttonSelected : styles.button;

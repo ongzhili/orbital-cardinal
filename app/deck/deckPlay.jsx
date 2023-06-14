@@ -15,14 +15,14 @@ import { Card, Deck } from '../../lib/model'
 
 const SAMPLE_FLASHCARDS = [
   {
-    id: 1,
-    question: 'What is 2 + 2',
-    answer: '4',
+    title: '1',
+    front: 'What is 2 + 2',
+    back: '4',
   },
   {
-    id: 2,
-    question: 'q2',
-    answer: '4',
+    title: '2',
+    front: 'q2',
+    back: '4',
   },
 ]
 
@@ -31,67 +31,84 @@ const SAMPLE_FLASHCARDS = [
  * @param {Card} card 
  * @returns html
  */
-function renderCard(cards) {
-  console.log(cards)
+function RenderCard({cards}) {
+  console.log(cards.front)
   card = cards
+
   return (
     <ScrollView>
       <FlipCard
         style = { styles.card }
       >
         {/* Front */}
-        <View style = {styles.front}>
-          <Text style = {styles.title}> {card.front} </Text>
+        <View style = {styles.card}>
+          <Text style = {styles.title}> {cards.front} </Text>
         </View>
         {/* Back */}
-        <View style = {styles.back}>
-          <Text style = {styles.title}> {card.back} </Text>
+        <View style = {styles.card}>
+          <Text style = {styles.title}> {cards.back} </Text>
         </View>
       </FlipCard>
     </ScrollView>
   )
 }
 
+
+  // return (
+  //   <SafeAreaView>
+  //     <ScrollView >
+  //       <FlipCard
+  //         style = { styles.card }
+  //       >
+  //         {/* Front */}
+  //         <View style = {styles.card}>
+  //           <Text style = {styles.title}> {card.front} </Text>
+  //         </View>
+  //         {/* Back */}
+  //         <View style = {styles.card}>
+  //           <Text style = {styles.title}> {card.back} </Text>
+  //         </View>
+  //       </FlipCard>
+  //     </ScrollView>
+  //   </SafeAreaView>
+  // )
+
+
 const ini = Card.makeCard("Name","front", "back")
 
 export default function deckPlay() {
   const [card, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
+  const currentDeck = useContext(DeckContext);
   ini.then(card => setCards(card)).then(x => setLoading(false))
+
   return (
     <SafeAreaView>
-      <ScrollView>
-        <FlipCard
-          style = { styles.card }
-        >
-          {/* Front */}
-          <View style = {styles.front}>
-            <Text style = {styles.title}> {card.front} </Text>
-          </View>
-          {/* Back */}
-          <View style = {styles.back}>
-            <Text style = {styles.title}> {card.back} </Text>
-          </View>
-        </FlipCard>
-      </ScrollView>
+    <FlatList
+    data = {currentDeck.deck}
+    renderItem = {({item}) => <RenderCard cards={item} />}
+    keyExtractor={item => item.id}>
+
+    </FlatList>
     </SafeAreaView>
-  )
+
+  );
 }
 
 // export default function deckPlay() {
 //   const [flashcards, setFlashcards] = useState(SAMPLE_FLASHCARDS)
 //   const currentDeck = useContext(DeckContext);
-//     return (
-//       <SafeAreaView>
-//       <FlatList
-//       data = {currentDeck.deck}
-//       renderItem = {({item}) => <FlashCard flashCard={item} />}
-//       keyExtractor={item => item.id}>
+    // return (
+    //   <SafeAreaView>
+    //   <FlatList
+    //   data = {currentDeck.deck}
+    //   renderItem = {({item}) => <FlashCard flashCard={item} />}
+    //   keyExtractor={item => item.id}>
 
-//       </FlatList>
-//       </SafeAreaView>
+    //   </FlatList>
+    //   </SafeAreaView>
 
-//     );
+    // );
 // }
 
 const { width, height } = Dimensions.get('window')
@@ -111,15 +128,18 @@ const styles = StyleSheet.create({
     height: 200,
   },
   title: {
-    fontSize: 18,
+    fontSize: 50,
     marginBottom: 20,
+    marginTop: 20,
     alignSelf: 'center',
+    color: '#FFFFFF'
   },
   input: {
     marginBottom: 10,
   },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#03254c',
+    justifyContent: 'center',
     alignItems: 'center',
     shadowOpacity: 0.5,
     shadowOffset: {
@@ -132,6 +152,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     borderWidth: 0,
+    flex: 1,
   },
   image: {
     flex: 1,
@@ -140,6 +161,7 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch' ,
     padding: 100,
     marginVertical:20,
-  }
+  },
+
   });
 
