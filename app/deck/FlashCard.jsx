@@ -31,7 +31,6 @@ function FlashCard({ flashCard }) {
           <Text>asdasdas</Text>
         </View>
       )
-    
     }
 
     return (
