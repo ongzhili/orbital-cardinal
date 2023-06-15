@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 const DEFAULT_GUILD = [
     {
         id: 0,
-        title: "",
+        title: "None",
         description: "",
     }
 ]

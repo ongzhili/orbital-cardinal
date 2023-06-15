@@ -5,28 +5,28 @@ import { useRouter, useSegments } from "expo-router";
 
 const AuthContext = createContext({});
 
-function useProtectedRoute(user) {
-    const segments = useSegments();
-    const router = useRouter();
+// function useProtectedRoute(user) {
+//     const segments = useSegments();
+//     const router = useRouter();
 
-    useEffect(() => {
-        console.log(`useProtectedRoute useEffect called`);
-        const inAuthGroup = segments[1] === "(auth)";
-        if (user == null && !inAuthGroup) {
-            console.log(segments);
-            router.replace("../community/(auth)/login");
-        } else if ((user && inAuthGroup )) {
-            router.replace("/community/commHome");
-            console.log(segments);
-            console.log('a');
-        }
-    }, [router, segments, user])
-}
+//     useEffect(() => {
+//         console.log(`useProtectedRoute useEffect called`);
+//         const inAuthGroup = segments[1] === "(auth)";
+//         if (user == null && !inAuthGroup) {
+//             console.log(segments);
+//             router.replace("../community/(auth)/login");
+//         } else if ((user && inAuthGroup )) {
+//             router.replace("/community/commHome");
+//             console.log(segments);
+//             console.log('a');
+//         }
+//     }, [router, segments, user])
+// }
 
 export function AuthProvider({children}) {
     const [user, setUser] = useState(null);
 
-    useProtectedRoute(user);
+    //useProtectedRoute(user);
 
     useEffect(() => {
         const { data } = supabase.auth.onAuthStateChange((event, session) => {

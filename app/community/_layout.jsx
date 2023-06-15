@@ -4,9 +4,9 @@ import { Stack, Slot } from "expo-router";
 
 export default function Root() {
     return (
-            <AuthProvider>
+            //<AuthProvider>
                 <Slot />
-            </AuthProvider>
+            //</AuthProvider>
             //<Slot></Slot>
     )
 }

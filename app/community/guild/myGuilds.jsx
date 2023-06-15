@@ -1,12 +1,13 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, FlatList, Image } from 'react-native';
+import { StyleSheet, FlatList, Image, ScrollView } from 'react-native';
 import { Text, Button, TextInput } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createContext, useContext, useEffect, useState } from "react";
 import { GuildContext } from "../../../contexts/guild";
+import { column } from '@nozbe/watermelondb/QueryDescription';
 
 
 const SAMPLE_GUILDS = [
@@ -26,10 +27,40 @@ const SAMPLE_GUILDS = [
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
     },
     {
-        id: 4,
-        title: 'Sample Guild 4',
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
-    }
+      id: 4,
+      title: 'Sample Guild 4',
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+  },
+    {
+      id: 5,
+      title: 'Sample Guild 5',
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+  },
+  {
+    id: 6,
+    title: 'Sample Guild 6',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+  },
+  {
+    id: 7,
+    title: 'Sample Guild 7',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+  },
+  {
+    id: 8,
+    title: 'Sample Guild 8',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+  },
+  {
+    id: 9,
+    title: 'Sample Guild 9',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+  },
+  {
+    id: 10,
+    title: 'Sample Guild 10',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+  },
 
 ]
 
@@ -49,7 +80,7 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
 
 
 
-export default function GuildSelect({ guild }) {
+  export default function GuildSelect({ guild }) {
     const guildCont = useContext(GuildContext);
     const [selectedGuild, setSelectedGuild] = useState(null);
   
@@ -62,35 +93,55 @@ export default function GuildSelect({ guild }) {
     }, [selectedGuild]);
   
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ flexDirection: 'column' }}>
+        <View style={styles.button2}>
+          {selectedGuild ? (
+            <>
+              <Text style={styles.title}>{"Selected Guild: " + selectedGuild.title}</Text>
+              <Text style={styles.desc}>{selectedGuild.description}</Text>
+              <Link href="./Community">
+                <Button style={{
+                  textAlign: 'center',
+                  textColor: 'red',
+                }}>
+                  Go
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <Text style={styles.title}>No guild selected</Text>
+          )}
+        </View>
+  
+        {/* TODO: Supabase integration to obtain list of guilds from a user */}
+  
         <FlatList
+          style={{}}
           data={SAMPLE_GUILDS}
           renderItem={({ item }) => (
             <GuildRender item={item} setGuild={handleGuildSelect} selectedGuild={selectedGuild} />
           )}
           keyExtractor={(item) => item.title}
         />
-  
-        {selectedGuild && (
-          <View style={styles.button}>
-            <Text style={styles.title}>{"Selected Guild: " + selectedGuild.title}</Text>
-            <Text style= {styles.desc}>{selectedGuild.description}</Text>
-            <Button onPress ={() => 1}>
-                Go
-            </Button>
-          </View>
-        )}
       </SafeAreaView>
     );
   }
 
   const styles = StyleSheet.create({
     button: {
-        backgroundColor:'#D9D9D9',
-        padding: 10,
-        marginVertical: 8,
-        marginHorizontal: 40,
-      },
+      backgroundColor:'#D9D9D9',
+      padding: 10,
+      marginVertical: 8,
+      marginHorizontal: 40,
+
+    },
+    button2: {
+      backgroundColor:'#D9D9D9',
+      padding: 10,
+      marginVertical: 8,
+      marginHorizontal: 40,
+
+    },
       buttonSelected: {
         backgroundColor:'red',
         padding: 10,
