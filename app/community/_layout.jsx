@@ -1,12 +1,15 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider } from "../../contexts/auth";
 import { Stack, Slot } from "expo-router";
+import { GuildProvider } from "../../contexts/guild";
 
 export default function Root() {
     return (
-            //<AuthProvider>
+        <AuthProvider>
+            <GuildProvider>
                 <Slot />
-            //</AuthProvider>
+            </GuildProvider>
+        </AuthProvider>
             //<Slot></Slot>
     )
 }

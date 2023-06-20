@@ -3,8 +3,12 @@ import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, FlatList, Image } from 'react-native';
 import { Text, Button } from 'react-native-paper';
-import { Link } from 'expo-router';
-
+import { Link, Redirect, useRouter } from 'expo-router';
+import { AuthContext, useProtectedRoute } from "../../contexts/auth";
+import { useContext } from 'react';
+import { useEffect } from 'react';
+import { useAuth } from '../../contexts/auth';
+import { supabase } from '../../lib/supabase';
 
 
 const DATA = [
@@ -16,7 +20,7 @@ const DATA = [
     {
       id: '2',
       title: 'My Communities',
-      link: "./guild/myGuilds",
+      link: "./myGuilds",
     },
   ];
 
@@ -63,7 +67,12 @@ const styles = StyleSheet.create({
 
 
 
-export default function commHome() {
+export function HomeIfLoggedIn({user}) {
+
+    if (!user) {
+      return <Redirect href = "./login" />
+    }
+  
     return (
       <View>
         <Image style = {styles.image} source = {require('../../assets/adaptive-icon.png')}>
@@ -77,4 +86,30 @@ export default function commHome() {
 
       </View>
     );
+}
+
+export const loadName = async (user) => {
+  const {data, error} = await supabase.from('Users').select('Display_Name', user.id);
+
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('no error!')
+    console.log(data);
+
+    // Seems to work without RLS, will need to experiment with RLS.
+  }
+}
+
+export default function commHome() {
+  const currentUser = useAuth();
+  console.log(currentUser.user);
+
+  loadName(currentUser);
+
+
+
+  return (
+    <HomeIfLoggedIn user={currentUser.user} />
+  );
 }

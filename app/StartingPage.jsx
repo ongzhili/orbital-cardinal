@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, FlatList, Image } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
+import { useAuth } from '../contexts/auth';
 
 
 
@@ -69,6 +70,8 @@ const styles = StyleSheet.create({
 
 
 export function StartingPage() {
+    const currentUser = useAuth();
+    console.log(currentUser);
     return (
       <View>
         <Image style = {styles.image} source = {require('../assets/adaptive-icon.png')}>

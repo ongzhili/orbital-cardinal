@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, FlatList,} from "react-native";
 import { Button } from "react-native-paper";
-import { GuildContext } from "../../../contexts/guild";
+import { GuildContext } from "../../contexts/guild";
 import { useContext } from "react";
 import { Link } from "expo-router";
 

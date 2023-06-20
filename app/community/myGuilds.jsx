@@ -6,7 +6,7 @@ import { Text, Button, TextInput } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createContext, useContext, useEffect, useState } from "react";
-import { GuildContext } from "../../../contexts/guild";
+import { GuildContext } from "../../contexts/guild";
 import { column } from '@nozbe/watermelondb/QueryDescription';
 
 
