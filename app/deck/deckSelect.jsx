@@ -53,7 +53,7 @@ export function DeckRender({ item, setDeck, selected, onSelect }) {
         console.log(item.title);
       };
     
-      const buttonStyle = selected ? styles.buttonSelected : styles.button;
+    const buttonStyle = selected ? styles.buttonSelected : styles.button;
     return (
         <View style = {styles.button}>
            <Button onPress={handleDeckUpdate} style = {buttonStyle}>

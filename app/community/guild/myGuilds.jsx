@@ -78,11 +78,17 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
       );
   }
 
+  const DEFAULT_GUILD = {
+    id: -1,
+    title: 'None',
+    description: '',
+  }
+
 
 
   export default function GuildSelect({ guild }) {
     const guildCont = useContext(GuildContext);
-    const [selectedGuild, setSelectedGuild] = useState(null);
+    const [selectedGuild, setSelectedGuild] = useState(DEFAULT_GUILD);
   
     const handleGuildSelect = (guild) => {
       setSelectedGuild(guild);
@@ -95,22 +101,15 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
     return (
       <SafeAreaView style={{ flexDirection: 'column' }}>
         <View style={styles.button2}>
-          {selectedGuild ? (
-            <>
               <Text style={styles.title}>{"Selected Guild: " + selectedGuild.title}</Text>
               <Text style={styles.desc}>{selectedGuild.description}</Text>
+              {selectedGuild.id !== -1 && ( // Conditionally render the button if the guild id is not -1
               <Link href="./Community">
-                <Button style={{
-                  textAlign: 'center',
-                  textColor: 'red',
-                }}>
+                <Button style={{ textAlign: 'center', textColor: 'red' }}>
                   Go
                 </Button>
               </Link>
-            </>
-          ) : (
-            <Text style={styles.title}>No guild selected</Text>
-          )}
+      )}
         </View>
   
         {/* TODO: Supabase integration to obtain list of guilds from a user */}

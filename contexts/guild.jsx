@@ -4,7 +4,16 @@ const DEFAULT_GUILD = [
     {
         id: 0,
         title: "None",
-        description: "",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+        decks: [
+            {
+                id: 1,
+                title: "GuildQ1",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+            }
+        ],
+        
+
     }
 ]
 
