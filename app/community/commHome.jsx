@@ -5,10 +5,11 @@ import { StyleSheet, FlatList, Image } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { Link, Redirect, useRouter } from 'expo-router';
 import { AuthContext, useProtectedRoute } from "../../contexts/auth";
-import { useContext } from 'react';
+import { useContext, useState} from 'react';
 import { useEffect } from 'react';
 import { useAuth } from '../../contexts/auth';
 import { supabase } from '../../lib/supabase';
+
 
 
 const DATA = [
@@ -88,28 +89,82 @@ export function HomeIfLoggedIn({user}) {
     );
 }
 
-export const loadName = async (user) => {
-  const {data, error} = await supabase.from('Users').select('Display_Name', user.id);
+export const loadName = async ({user, setDisplayName}) => {
+  const {data, error} = await supabase.from('Users').select('display_name', user.id).eq('user_id', user.id);
 
   if (error) {
     console.log(error);
   } else {
     console.log('no error!')
     console.log(data);
+    setDisplayName(data[0]);
 
     // Seems to work without RLS, will need to experiment with RLS.
   }
 }
 
+export async function loadName2(userid) {
+  const {data, error} = await supabase.from('Users').select('display_name', user.id).eq('user_id', user.id);
+  if (error) {
+    console.log(error);
+  }
+  if (data) {
+    
+  }
+
+}
+
 export default function commHome() {
   const currentUser = useAuth();
-  console.log(currentUser.user);
+  const [display, setDisplay] = new useState("");
+  
 
-  loadName(currentUser);
+  if (!currentUser.user || currentUser.user == null) {
+    console.log('dasdasd');
+    return <Redirect href = "./login" />
+  }
 
+  const handleName = async () => {
+    const {data, error} = await supabase
+      .from('Users')
+      .select('display_name', 'user_id')
+      .eq('user_id', currentUser.user.id)
+      .limit(1);
+    if (error) {
+        setErrMsg(error.message);
+    }
+    
+    console.log(data);
+    setDisplay(data[0].display_name);
+  }
+  //loadName2(currentUser.user.id);
+
+
+  handleName();
 
 
   return (
-    <HomeIfLoggedIn user={currentUser.user} />
+    <View>
+      <Image style = {styles.image} source = {require('../../assets/adaptive-icon.png')}>
+      </Image>
+      <Text>
+        {"Welcome + " + display}
+      </Text>
+      <FlatList
+      data = {DATA}
+      renderItem = {({item}) => <Item item={item} />}
+      >
+
+      </FlatList>
+
+    </View>
   );
 }
+
+ 
+  //console.log(currentUser.user);
+  //const [name, setName] = useState(null);
+  //const [displayName, setDisplayname] = useState(null);
+
+  //loadName({currentUser, setDisplayname});
+  //console.log(displayName);

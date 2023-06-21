@@ -8,6 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { createContext, useContext, useEffect, useState } from "react";
 import { GuildContext } from "../../contexts/guild";
 import { column } from '@nozbe/watermelondb/QueryDescription';
+import { useAuth } from '../../contexts/auth';
 
 
 const SAMPLE_GUILDS = [
@@ -65,6 +66,9 @@ const SAMPLE_GUILDS = [
 ]
 
 export function GuildRender({ item, setGuild, selectedGuild}) {
+  const currentUser = useAuth();
+  console.log(currentUser.user);
+
     const handleGuildUpdate = () => {
       setGuild(item);
     };
