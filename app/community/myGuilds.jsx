@@ -9,6 +9,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { GuildContext } from "../../contexts/guild";
 import { column } from '@nozbe/watermelondb/QueryDescription';
 import { useAuth } from '../../contexts/auth';
+import { supabase } from '../../lib/supabase';
 
 
 const SAMPLE_GUILDS = [
@@ -66,8 +67,6 @@ const SAMPLE_GUILDS = [
 ]
 
 export function GuildRender({ item, setGuild, selectedGuild}) {
-  const currentUser = useAuth();
-  console.log(currentUser.user);
 
     const handleGuildUpdate = () => {
       setGuild(item);
@@ -91,8 +90,12 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
 
 
   export default function GuildSelect({ guild }) {
+    const currentUser = useAuth();
     const guildCont = useContext(GuildContext);
     const [selectedGuild, setSelectedGuild] = useState(DEFAULT_GUILD);
+    const [supaGuilds, setSupaGuilds] = useState(null);
+    const [dataToSend, setDataToSend] = useState([]);
+    const [init, setInit] = new useState(false);
   
     const handleGuildSelect = (guild) => {
       setSelectedGuild(guild);
@@ -101,6 +104,63 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
     useEffect(() => {
       guildCont.setGuild(selectedGuild);
     }, [selectedGuild]);
+
+
+
+
+    const fetchGuilds = async (guildid, setDataToSend) => {
+      const {data, error} = await supabase
+        .from('Guilds')
+        .select()
+        .eq('Guild_ID', guildid)
+        .limit(1);
+      if (error) {
+          console.log(error.message);
+      }
+      
+      console.log(data[0].title);
+      console.log(data[0].description);
+      setDataToSend((result) => [...result, data[0]]);
+      console.log(dataToSend);
+      
+    }
+
+
+    
+    const handleGuilds = async () => {
+      const {data, error} = await supabase
+        .from('Users')
+        .select('Guilds', 'user_id')
+        .eq('user_id', currentUser.user.id)
+        .limit(1);
+      if (error) {
+          setErrMsg(error.message);
+          console.log(error);
+      }
+      
+      console.log(data[0].Guilds);
+      setSupaGuilds(data[0].Guilds);
+
+      for (const guildId of data[0].Guilds) {
+        console.log("for loop");
+        console.log(supaGuilds); 
+        console.log(guildId);
+        await fetchGuilds(guildId, setDataToSend);
+      }
+
+       
+    }
+  
+  if (!init) {
+
+    if (!supaGuilds) {
+      handleGuilds();
+    }
+
+
+    setInit(true);
+  }
+   console.log(dataToSend);  
   
     return (
       <SafeAreaView style={{ flexDirection: 'column' }}>
@@ -118,9 +178,18 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
   
         {/* TODO: Supabase integration to obtain list of guilds from a user */}
   
-        <FlatList
+        {/* <FlatList
           style={{}}
           data={SAMPLE_GUILDS}
+          renderItem={({ item }) => (
+            <GuildRender item={item} setGuild={handleGuildSelect} selectedGuild={selectedGuild} />
+          )}
+          keyExtractor={(item) => item.title}
+        /> */}
+
+          <FlatList
+          style={{}}
+          data={dataToSend}
           renderItem={({ item }) => (
             <GuildRender item={item} setGuild={handleGuildSelect} selectedGuild={selectedGuild} />
           )}

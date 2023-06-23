@@ -103,16 +103,6 @@ export const loadName = async ({user, setDisplayName}) => {
   }
 }
 
-export async function loadName2(userid) {
-  const {data, error} = await supabase.from('Users').select('display_name', user.id).eq('user_id', user.id);
-  if (error) {
-    console.log(error);
-  }
-  if (data) {
-    
-  }
-
-}
 
 export default function commHome() {
   const currentUser = useAuth();
