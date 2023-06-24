@@ -51,7 +51,7 @@ export function DeckRender({ item, setDeck, selected, onSelect }) {
     const handleDeckUpdate = () => {
         setDeck(item.deck);
         onSelect(item.name);
-        console.log(item.name);
+        console.log("DeckSelect - handling update: " + item.name);
       };
     
     const buttonStyle = selected ? styles.buttonSelected : styles.button;
@@ -67,19 +67,18 @@ export function DeckRender({ item, setDeck, selected, onSelect }) {
     )
 }
 
-let loading = true;
-
 export default function deckSelect({deck}) {
     const [flashcards, setFlashcards] = useState(SAMPLE_DECKS);
     const [selectedDeck, setSelectedDeck] = useState(null);
     const [decks, setDecks] = useState([])
+    const [loading, setLoading] = useState(true)
 
     const deckCont = useContext(DeckContext);
 
     if (loading) {
       database.get('decks').query().fetch().then(decks => {
-        loading = false;
-        setDecks(decks);
+        setLoading(false)
+        setDecks(decks)
       })
     }
 

@@ -1,37 +1,19 @@
-/* eslint-disable react/react-in-jsx-scope */
-import { View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, FlatList, Image } from 'react-native';
-import { Text, Button } from 'react-native-paper';
-import { Link } from 'expo-router';
-import { useAuth } from '../contexts/auth';
 
 
-
-const DATA = [
+const OPTIONS = [
     {
       id: '1',
-      title: 'Play',
-      link: "./play/deckSelect",
+      title: 'Classic',
+      link: "play",
     },
     {
       id: '2',
-      title: 'Edit',
-      link: "./play/deckSelect",
+      title: 'Quiz',
+      link: "play",
     },
-    {
-      id: '3',
-      title: 'Community',
-      link: "./community/commHome",
-    },
-    {
-      id: '4',
-      title: 'Settings',
-      link: "settings",
-    },
-  ];
-
-function Item( {item} ) { 
+  ]
+  
+  function Item( {item} ) { 
     return (
         <View style = {styles.button}>
           <Link href= {item.link}>
@@ -72,9 +54,7 @@ const styles = StyleSheet.create({
     }
   });
 
-
-
-export function StartingPage() {
+  export function playSelect() {
     const currentUser = useAuth();
     console.log(`StartingPage - ${currentUser}`);
     return (

@@ -24,20 +24,6 @@ const SAMPLE_FLASHCARDS = [
   },
 ]
 
-const OPTIONS = [
-  {
-    id: '1',
-    title: 'Classic',
-    link: "play",
-  },
-  {
-    id: '2',
-    title: 'Test',
-    link: "play",
-  },
-]
-
-
 /**
  * @param {Card} card 
  * @returns html
