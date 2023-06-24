@@ -7,34 +7,35 @@ import { Link } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createContext, useContext, useEffect, useState } from "react";
 import { DeckContext } from "../../contexts/deck";
+import { database } from '../..';
 
 
 const SAMPLE_DECKS = [
     {
-        title: "Deck 1",
+        name: "Deck 1",
         deck :[
             {
-                title: '1',
+                name: '1',
                 front: 'What is 1 + 1',
                 back: '2',
               },
               {
-                title: '2',
+                name: '2',
                 front: 'deck1q2',
                 back: '4',
               },
         ]
     },
     {
-        title: "Deck 2",
+        name: "Deck 2",
         deck :[
             {
-              title: '1',
+              name: '1',
                 front: 'deck2q1',
                 back: '1',
               },
               {
-                title: '2',
+                name: '2',
                 front: 'deck2q2',
                 back: '4',
               },
@@ -49,16 +50,16 @@ export function DeckRender({ item, setDeck, selected, onSelect }) {
 
     const handleDeckUpdate = () => {
         setDeck(item.deck);
-        onSelect(item.title);
-        console.log(item.title);
+        onSelect(item.name);
+        console.log(item.name);
       };
     
     const buttonStyle = selected ? styles.buttonSelected : styles.button;
     return (
         <View style = {styles.button}>
            <Button onPress={handleDeckUpdate} style = {buttonStyle}>
-                <Text style = {styles.title}>
-                    {item.title}
+                <Text style = {styles.name}>
+                    {item.name}
                 </Text>
             </Button>
              
@@ -66,28 +67,36 @@ export function DeckRender({ item, setDeck, selected, onSelect }) {
     )
 }
 
-
+let loading = true;
 
 export default function deckSelect({deck}) {
     const [flashcards, setFlashcards] = useState(SAMPLE_DECKS);
     const [selectedDeck, setSelectedDeck] = useState(null);
+    const [decks, setDecks] = useState([])
 
     const deckCont = useContext(DeckContext);
 
-    const handleSelect = (title) => {
-        setSelectedDeck(title);
+    if (loading) {
+      database.get('decks').query().fetch().then(decks => {
+        loading = false;
+        setDecks(decks);
+      })
+    }
+
+    const handleSelect = (name) => {
+        setSelectedDeck(name);
     };
 
       return (
         <SafeAreaView>
         <FlatList
-        data = {SAMPLE_DECKS}
+        data = {decks}
         renderItem = {({item}) => <DeckRender 
                                         item={item} 
                                         setDeck={deckCont.setDeck} 
-                                        selected={item.title === selectedDeck}
+                                        selected={item.name === selectedDeck}
                                         onSelect={handleSelect}/>}
-        keyExtractor={item => item.title}>
+        keyExtractor={item => item.name}>
   
         </FlatList>
         <Link href= './deckPlay'>

@@ -8,8 +8,6 @@ import { useContext, useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FlashCard from './FlashCard';
 import { DeckContext } from '../../contexts/deck';
-import FlipCard from 'react-native-flip-card';
-import Swiper from 'react-native-deck-swiper';
 import { Card, Deck } from '../../lib/model'
 
 
@@ -31,7 +29,7 @@ const SAMPLE_FLASHCARDS = [
  * @param {Card} card 
  * @returns html
  */
-function RenderCard({cards}) {
+function renderCard({cards}) {
   console.log(cards.front)
   card = cards
 
@@ -73,14 +71,10 @@ function RenderCard({cards}) {
   //   </SafeAreaView>
   // )
 
-
-const ini = Card.makeCard("Name","front", "back")
-
 export default function deckPlay() {
   const [card, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const currentDeck = useContext(DeckContext);
-  ini.then(card => setCards(card)).then(x => setLoading(false))
 
   return (
     <SafeAreaView>
