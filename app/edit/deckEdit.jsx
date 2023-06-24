@@ -6,7 +6,7 @@ import { Text, Button, TextInput } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { useContext, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import FlashCard from './FlashCard';
+import FlashCard from '../play/FlashCard';
 import { DeckContext } from '../../contexts/deck';
 
 

@@ -12,15 +12,20 @@ const DATA = [
     {
       id: '1',
       title: 'Play',
-      link: "play",
+      link: "./play/deckSelect",
     },
     {
       id: '2',
+      title: 'Edit',
+      link: "./play/deckSelect",
+    },
+    {
+      id: '3',
       title: 'Community',
       link: "./community/commHome",
     },
     {
-      id: '3',
+      id: '4',
       title: 'Settings',
       link: "settings",
     },
