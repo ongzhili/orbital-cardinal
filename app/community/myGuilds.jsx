@@ -176,7 +176,7 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
       )}
         </View>
   
-        {/* TODO: Supabase integration to obtain list of guilds from a user */}
+        {/* Old sample data render */}
   
         {/* <FlatList
           style={{}}
