@@ -7,7 +7,6 @@ import { Link } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createContext, useContext, useEffect, useState } from "react";
 import { GuildContext } from "../../contexts/guild";
-import { column } from '@nozbe/watermelondb/QueryDescription';
 import { useAuth } from '../../contexts/auth';
 import { supabase } from '../../lib/supabase';
 
@@ -68,9 +67,15 @@ const SAMPLE_GUILDS = [
 
 export function GuildRender({ item, setGuild, selectedGuild}) {
 
+    //TODO: Check if the user is in the guild, then conditionally render Join instead of Go.
+
     const handleGuildUpdate = () => {
+
+      //TODO: Above TODO function runs here.
+      
       setGuild(item);
     };
+
   
     return (
         <View style={item === selectedGuild ? styles.buttonSelected : styles.button}>
@@ -89,13 +94,12 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
 
 
 
-  export default function GuildSelect({ guild }) {
-    const currentUser = useAuth();
+  export default function GuildSelect() {
     const guildCont = useContext(GuildContext);
     const [selectedGuild, setSelectedGuild] = useState(DEFAULT_GUILD);
-    const [supaGuilds, setSupaGuilds] = useState(null);
     const [dataToSend, setDataToSend] = useState([]);
     const [init, setInit] = new useState(false);
+    const MAX_DESCRIPTION_LENGTH = 100;
   
     const handleGuildSelect = (guild) => {
       setSelectedGuild(guild);
@@ -105,62 +109,37 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
       guildCont.setGuild(selectedGuild);
     }, [selectedGuild]);
 
-
-
-
-    const fetchGuilds = async (guildid, setDataToSend) => {
+ 
+    const handleAllGuilds = async () => {
       const {data, error} = await supabase
         .from('Guilds')
-        .select()
-        .eq('Guild_ID', guildid)
-        .limit(1);
-      if (error) {
-          console.log(error.message);
-      }
-      if (data[0] !== undefined) {
-        console.log(data[0].title);
-        console.log(data[0].description);
-        setDataToSend((result) => [...result, data[0]]);
-      }
-      
-    }
-
-
-    
-    const handleGuilds = async () => {
-      const {data, error} = await supabase
-        .from('Users')
-        .select('Guilds', 'user_id')
-        .eq('user_id', currentUser.user.id)
-        .limit(1);
+        .select('*')
       if (error) {
           setErrMsg(error.message);
+          console.log('error in obtaining guilds')
           console.log(error);
-      }
+      } 
+      console.log(data[0]);
+      setDataToSend(data);
       
-      console.log(data[0].Guilds);
-      setSupaGuilds(data[0].Guilds);
 
-      for (const guildId of data[0].Guilds) {
-        console.log(guildId);
-        await fetchGuilds(guildId, setDataToSend);
-      }
-
-       
     }
   
   if (!init) {
-
-    handleGuilds();
+    handleAllGuilds();
     setInit(true);
   }
+
   
     return (
       <SafeAreaView style={{ flexDirection: 'column' }}>
         <View style={styles.button2}>
               <Text style={styles.title}>{"Selected Guild: " + selectedGuild.title}</Text>
-              <Text style={styles.desc}>{selectedGuild.description}</Text>
-              {selectedGuild.id !== -1 && ( // Conditionally render the button if the guild id is not -1
+              <Text style={styles.desc}>{selectedGuild.description.length > MAX_DESCRIPTION_LENGTH
+                ? selectedGuild.description.substring(0, MAX_DESCRIPTION_LENGTH) + '...'
+                : selectedGuild.description}
+              </Text>
+              {selectedGuild.id !== -1 && (
               <Link href="./Community">
                 <Button style={{ textAlign: 'center', textColor: 'red' }}>
                   Go
@@ -168,18 +147,6 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
               </Link>
       )}
         </View>
-  
-        {/* Old sample data render */}
-  
-        {/* <FlatList
-          style={{}}
-          data={SAMPLE_GUILDS}
-          renderItem={({ item }) => (
-            <GuildRender item={item} setGuild={handleGuildSelect} selectedGuild={selectedGuild} />
-          )}
-          keyExtractor={(item) => item.title}
-        /> */}
-
           <FlatList
           style={{}}
           data={dataToSend}
@@ -205,6 +172,7 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
       padding: 10,
       marginVertical: 8,
       marginHorizontal: 40,
+      
 
     },
       buttonSelected: {

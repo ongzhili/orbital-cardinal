@@ -53,11 +53,11 @@ export function OptionRender({ item, setDeck, selected, onSelect }) {
       console.log(item.title);
     };
   
-    const handleButton1Click = () => {
-      //TODO: Go to leaderboard
+    const handleLBClick = () => {
+      //TODO: Go to leaderboard, make leaderboard page
     };
   
-    const handleButton2Click = () => {
+    const handleDeckPlayClick = () => {
       //TODO: Go to modified deckplay, that submits score after completion
     };
   
@@ -65,11 +65,11 @@ export function OptionRender({ item, setDeck, selected, onSelect }) {
       if (selected) {
         return (
           <View style={styles.dropdownContainer}>
-            <Button style = {styles.button} onPress={handleButton1Click}>
-              <Text>Leaderboards</Text>
+            <Button style = {styles.button} onPress={handleLBClick}>
+              <Text style = {styles.title}>Leaderboards</Text>
             </Button>
-            <Button style = {styles.button} onPress={handleButton2Click}>
-              <Text>Play</Text>
+            <Button style = {styles.button} onPress={handleDeckPlayClick}>
+              <Text style = {styles.title}>Play</Text>
             </Button>
           </View>
         );
@@ -100,6 +100,10 @@ export default function CommunityQuiz() {
     };
 
     //TODO: async function to get quizzes that matches guild ID.
+    // shd be sth like to get guild quiz IDs:
+    // let quizzes = currentGuild.Quizzes()
+    // shd just be sth like supabase.from('Decks').select().in('id', quizzes)
+
     console.log(SAMPLE_DECKS);
     return (
         <SafeAreaView>
@@ -122,6 +126,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginVertical: 8,
         marginHorizontal: 40,
+        fontSize: 25,
       },
       buttonSelected: {
         backgroundColor:'red',
@@ -146,8 +151,9 @@ const styles = StyleSheet.create({
     },
     dropdownContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 10,
+        justifyContent: 'space-evenly',
+        marginTop: 5,
+        marginBottom: 5,
       },
     
       buttonContainer: {
