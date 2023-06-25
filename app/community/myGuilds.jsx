@@ -117,10 +117,11 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
       if (error) {
           console.log(error.message);
       }
-      
-      console.log(data[0].title);
-      console.log(data[0].description);
-      setDataToSend((result) => [...result, data[0]]);
+      if (data[0] !== undefined) {
+        console.log(data[0].title);
+        console.log(data[0].description);
+        setDataToSend((result) => [...result, data[0]]);
+      }
       
     }
 

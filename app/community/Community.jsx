@@ -3,6 +3,7 @@ import { Button } from "react-native-paper";
 import { GuildContext } from "../../contexts/guild";
 import { useContext } from "react";
 import { Link } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 //TODO: Figure out the format
 
@@ -66,7 +67,7 @@ export default function Community() {
     console.log(currentGuild);
 
     return (
-        <View>
+        <SafeAreaView>
             <Text style = {styles.title}>
                 {currentGuild.guild.title}
             </Text>
@@ -88,7 +89,7 @@ export default function Community() {
             )}>
             </FlatList>
             
-        </View>
+        </SafeAreaView>
     )
 }
 
