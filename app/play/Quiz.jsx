@@ -50,6 +50,7 @@ export default function Quiz() {
   const [correct, setCorrect] = useState(0)
   const [numCorrect, setNumCorrect] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [allowNext, setAllowNext] = useState(true)
 
   if (loading) {
     setLoading(false)
@@ -71,7 +72,11 @@ export default function Quiz() {
                         flipVertical = {false}
                         clickable = {false}
                         flip = {flip}
-                        onFlipStart = {() => setFlipped(!flipped)}
+                        onFlipStart={() => setAllowNext(false)}
+                        onFlipEnd = {() => {
+                            setFlipped(!flipped)
+                            setAllowNext(true)
+                        }}
                     >
                         {/* Front */}
                         <View style = {styles.side}>
@@ -110,12 +115,13 @@ export default function Quiz() {
                 <Button
                     style = {styles.button}
                     onPress = {() => {
-                    if (currentCard < cards.length - 1) {
+                      if (!allowNext) return
+                      if (currentCard < cards.length - 1) {
                         setFlipRender(flipped)
                         setCorrect(0)
                         setCurrentCard(currentCard + 1)
-                    }
-                    else 
+                      }
+                      else 
                         setFinished(true)
                     }}
                 >
