@@ -62,7 +62,7 @@ export default function Review() {
                 style = {styles.card}
                 flipHorizontal = {true}
                 flipVertical = {false}
-                onFlipStart = {() => setFlipped(!flipped)}
+                onFlipEnd = {() => setFlipped(!flipped)}
               >
                 {/* Front */}
                 <View style = {styles.side}>
