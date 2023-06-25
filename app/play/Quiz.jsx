@@ -103,6 +103,7 @@ export default function Quiz() {
                         if (answer.toUpperCase() == cards[currentCard].back.toUpperCase()) {
                             setCorrect(1)
                             setNumCorrect(numCorrect + 1)
+                            setAnswer("");
                         }
                         else 
                             setCorrect(2)
