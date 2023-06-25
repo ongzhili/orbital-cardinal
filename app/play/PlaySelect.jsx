@@ -1,4 +1,7 @@
-
+import { StyleSheet } from 'react-native';
+import { View, Button, Image } from 'react-native-paper';
+import { Link } from 'expo-router';
+import { FlatList } from 'react-native';
 
 const OPTIONS = [
     {
@@ -30,7 +33,7 @@ const OPTIONS = [
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      marginTop: StatusBar.currentHeight || 0,
+      
     },
     button: {
       backgroundColor: '#D9D9D9',
@@ -59,7 +62,7 @@ const styles = StyleSheet.create({
     console.log(`StartingPage - ${currentUser}`);
     return (
       <View>
-        <Image style = {styles.image} source = {require('../assets/adaptive-icon.png')}>
+        <Image style = {styles.image} source = {require('../../assets/adaptive-icon.png')}>
         </Image>
         <FlatList
         data = {DATA}
