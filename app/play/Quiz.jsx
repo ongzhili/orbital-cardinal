@@ -89,6 +89,7 @@ export default function Quiz() {
                     <TextInput
                         placeholder = {"Answer"}
                         onChangeText = {setAnswer}
+                        value = {answer}
                     ></TextInput>
                     <Button
                     style = {styles.button}
@@ -114,6 +115,7 @@ export default function Quiz() {
                         setFlipRender(flipped)
                         setCorrect(0)
                         setCurrentCard(currentCard + 1)
+                        setAnswer("");
                     }
                     else 
                         setFinished(true)
