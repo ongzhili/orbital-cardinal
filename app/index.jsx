@@ -5,6 +5,7 @@ import { Text, Button, TextInput, Checkbox } from 'react-native-paper';
 import { StartingPage } from './StartingPage'
 import { supabase } from '../lib/supabase';
 
+
 export default function HomePage() {
   return (
       <SafeAreaView style = {styles.container}>

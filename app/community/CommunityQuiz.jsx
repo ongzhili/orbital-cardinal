@@ -1,7 +1,6 @@
 import { View, Text, FlatList } from "react-native";
 import { GuildContext } from "../../contexts/guild";
 import { useContext, useState } from "react";
-import { DeckContext } from "../../contexts/deck";
 import { StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import { SafeAreaView } from 'react-native-safe-area-context';

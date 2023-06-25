@@ -6,8 +6,9 @@ import { Text, Button, TextInput } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createContext, useContext, useEffect, useState } from "react";
-import { DeckContext } from "../../contexts/deck";
+import { PlayContext } from "../../contexts/play";
 import { database } from '../..';
+import { useRouter } from "expo-router";
 
 
 const SAMPLE_DECKS = [
@@ -44,17 +45,18 @@ const SAMPLE_DECKS = [
 
 ];
 
-export function DeckRender({ item, setDeck, selected, onSelect }) {
+export function DeckRender({ item, setDeck, nextPage, router }) {
 
 
 
     const handleDeckUpdate = () => {
-        setDeck(item.deck);
-        onSelect(item.name);
+        setDeck(item);
         console.log("DeckSelect - handling update: " + item.name);
+        console.log(`DeckSelect - routing to: ${nextPage}`)
+        router.push(nextPage)
       };
     
-    const buttonStyle = selected ? styles.buttonSelected : styles.button;
+    const buttonStyle = styles.button;
     return (
         <View style = {styles.button}>
            <Button onPress={handleDeckUpdate} style = {buttonStyle}>
@@ -62,18 +64,17 @@ export function DeckRender({ item, setDeck, selected, onSelect }) {
                     {item.name}
                 </Text>
             </Button>
-             
         </View>
     )
 }
 
-export default function deckSelect({deck}) {
-    const [flashcards, setFlashcards] = useState(SAMPLE_DECKS);
-    const [selectedDeck, setSelectedDeck] = useState(null);
+export default function DeckSelect({deck}) {
     const [decks, setDecks] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const deckCont = useContext(DeckContext);
+    const playCont = useContext(PlayContext);
+    const link = `./` + playCont.mode
+    const router = useRouter()
 
     if (loading) {
       database.get('decks').query().fetch().then(decks => {
@@ -82,29 +83,18 @@ export default function deckSelect({deck}) {
       })
     }
 
-    const handleSelect = (name) => {
-        setSelectedDeck(name);
-    };
-
       return (
         <SafeAreaView>
         <FlatList
         data = {decks}
         renderItem = {({item}) => <DeckRender 
-                                        item={item} 
-                                        setDeck={deckCont.setDeck} 
-                                        selected={item.name === selectedDeck}
-                                        onSelect={handleSelect}/>}
+                                        item = {item} 
+                                        setDeck = {playCont.setDeck} 
+                                        nextPage = {link}
+                                        router = {router}/>}
         keyExtractor={item => item.name}>
   
         </FlatList>
-        <Link href= './deckPlay'>
-            <Button  style = {styles.button}>
-                <Text style = {styles.title}>
-                    Play
-                </Text>
-            </Button>
-        </Link>
         </SafeAreaView>
   
       );

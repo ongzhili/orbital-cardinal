@@ -1,10 +1,10 @@
 import { Stack } from "expo-router";
-import { DeckProvider } from "../../contexts/deck";
+import { PlayProvider } from "../../contexts/play";
 
 export default function DeckLayout() {
     return (
-        <DeckProvider>
+        <PlayProvider>
             <Stack /> 
-        </DeckProvider>
+        </PlayProvider>
     )
 }

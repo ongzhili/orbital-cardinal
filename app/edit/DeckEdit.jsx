@@ -7,25 +7,9 @@ import { Link } from 'expo-router';
 import { useContext, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FlashCard from '../play/FlashCard';
-import { DeckContext } from '../../contexts/deck';
-
-
-const SAMPLE_FLASHCARDS = [
-  {
-    id: 1,
-    question: 'What is 2 + 2',
-    answer: '4',
-  },
-  {
-    id: 2,
-    question: 'q2',
-    answer: '4',
-  },
-]
 
 export default function deckEdit() {
   const [flashcards, setFlashcards] = useState(SAMPLE_FLASHCARDS)
-  const currentDeck = useContext(DeckContext);
     return (
       <SafeAreaView>
       <FlatList
