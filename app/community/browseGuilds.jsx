@@ -67,16 +67,6 @@ const SAMPLE_GUILDS = [
 
 export function GuildRender({ item, setGuild, selectedGuild}) {
 
-    //TODO: Check if the user is in the guild, then conditionally render Join instead of Go.
-
-    const handleGuildUpdate = () => {
-
-      //TODO: Above TODO function runs here.
-      
-      setGuild(item);
-    };
-
-  
     return (
         <View style={item === selectedGuild ? styles.buttonSelected : styles.button}>
           <Button onPress={handleGuildUpdate}>
@@ -90,6 +80,48 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
     id: -1,
     title: 'None',
     description: '',
+  }
+
+
+
+  export function DropDown({guild}) {
+    const currentUser = useAuth();
+    console.log('dropdown');
+    console.log(guild);
+    console.log(currentUser.user.id);
+
+    const handleJoin = async () => {
+      const { data, error } = await supabase
+        .rpc('append_uuid_to_array', {
+           userid: currentUser.user.id,
+           guildid: guild.Guild_ID
+
+        });
+
+      if (error) {
+        console.log(error);
+      }
+    
+    }
+
+    if (guild.users.includes(currentUser.user.id)) {
+      return (
+        <Link href="./Community">
+          <Button style={{ textAlign: 'center', textColor: 'red' }}>
+            Go
+          </Button>
+        </Link>
+        )
+    } else {
+      return (
+        <Button onPress={handleJoin}>
+          Join
+        </Button>
+      )
+    }
+
+
+    //TODO: Change Join to Go once joined.
   }
 
 
@@ -140,11 +172,12 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
                 : selectedGuild.description}
               </Text>
               {selectedGuild.id !== -1 && (
-              <Link href="./Community">
-                <Button style={{ textAlign: 'center', textColor: 'red' }}>
-                  Go
-                </Button>
-              </Link>
+                <DropDown guild = {selectedGuild}></DropDown>
+              // <Link href="./Community">
+              //   <Button style={{ textAlign: 'center', textColor: 'red' }}>
+              //     Go
+              //   </Button>
+              // </Link>
       )}
         </View>
           <FlatList
