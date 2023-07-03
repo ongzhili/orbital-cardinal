@@ -25,28 +25,6 @@ export function useProtectedRoute(user) {
 }
 
 
-// export function AuthProvider({children}) {
-//     const [user, setUser] = useState(null);
-
-//     useProtectedRoute(user);
-
-//     useEffect(() => {
-//         const { data } = supabase.auth.onAuthStateChange((event, session) => {
-//             console.log(`authStateEvent: ${event}`);
-//             if(event === "SIGNED_IN") {
-//                 console.log("user set");
-//                 setUser(session.user);
-//                 console.log(session.user);
-//             } else if (event === "SIGNED_OUT") {
-//                 setUser(null);
-//             }
-//         })
-//         return () => data.subscription.unsubscribe();
-//     }, [])
-
-//     return (<AuthContext.Provider value = {{user, setUser}}>{children}</AuthContext.Provider>);
-// }
-
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
   
