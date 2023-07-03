@@ -122,14 +122,9 @@ export default function Quiz() {
                         setFlipRender(flipped)
                         setCorrect(0)
                         setCurrentCard(currentCard + 1)
-<<<<<<< HEAD
                         setAnswer("");
                     }
                     else 
-=======
-                      }
-                      else 
->>>>>>> e8bdb32001b567da37965d3c3f1143dcee351fb2
                         setFinished(true)
                     }}
                 >

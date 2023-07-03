@@ -12,7 +12,7 @@ import { supabase } from '../../lib/supabase';
 
 
 
-const DATA = [
+const PAGES = [
     {
       id: '1',
       title: 'Browse Communities',
@@ -23,6 +23,12 @@ const DATA = [
       title: 'My Communities',
       link: "./myGuilds",
     },
+    {
+      id: '3',
+      title: 'User Settings',
+      link: "./userSettings",
+    },
+    
   ];
 
 function Item( {item} ) { 
@@ -40,50 +46,15 @@ function Item( {item} ) {
 }
 
 
-export function HomeIfLoggedIn({user}) {
-
-    if (!user) {
-      return <Redirect href = "./login" />
-    }
-  
-    return (
-      <View>
-        <Image style = {styles.image} source = {require('../../assets/adaptive-icon.png')}>
-        </Image>
-        <FlatList
-        data = {DATA}
-        renderItem = {({item}) => <Item item={item} />}
-        keyExtractor={item => item.id}>
-
-        </FlatList>
-
-      </View>
-    );
-}
-
-export const loadName = async ({user, setDisplayName}) => {
-  const {data, error} = await supabase.from('Users').select('display_name', user.id).eq('user_id', user.id);
-
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('no error!')
-    console.log(data);
-    setDisplayName(data[0]);
-
-    // Seems to work without RLS, will need to experiment with RLS.
-  }
-}
-
-
 export default function commHome() {
   const currentUser = useAuth();
   const [display, setDisplay] = new useState("");
   const [init, setInit] = new useState(false);
+  const [errMsg, setErrMsg] = useState('');
   
 
   if (!currentUser.user || currentUser.user == null) {
-    console.log('dasdasd');
+    console.log('Not Logged in! (from commHome)');
     return <Redirect href = "./login" />
   }
 
@@ -113,10 +84,10 @@ export default function commHome() {
       <Image style = {styles.image} source = {require('../../assets/adaptive-icon.png')}>
       </Image>
       <Text>
-        {"Welcome + " + display}
+        {"Logged in as: " + display}
       </Text>
       <FlatList
-      data = {DATA}
+      data = {PAGES}
       renderItem = {({item}) => <Item item={item} />}
       >
 

@@ -14,26 +14,6 @@ const SAMPLE_USER = [
 ]
 
 
-// export function Option({text}) {
-//     const [checked, setChecked] = useState(false);
-
-    
-
-
-//     return (
-//         <View style = {styles.option}>
-//             <Text>{text}</Text>
-//             <Checkbox
-//                 status={checked ? 'checked' : 'unchecked'}
-//                 onPress={() => {
-//                     setChecked(!checked);
-//                 }}
-//             />
-//         </View>
-//     )
-
-// }
-
 export function Option({ text }) {
     const [checked, setChecked] = useState(false);
 
@@ -52,46 +32,15 @@ export function Option({ text }) {
 
 export default function settings() {
 
-    const [text, onChangeText] = useState(SAMPLE_USER[0].display_name);
 
-    // Temporary to simulate API request to change username
-    const [username, changeUsername] = useState(SAMPLE_USER[0].display_name);
-
-    //TODO: Obtain user session data once context is figured out. SAMPLE_USER is used for now.
-
-    const handleUserChange = () => {
-        changeUsername(text);
-        console.log(username);
-    }
-
-    const handleLogOut = () => {
-        //TODO
-        console.log("User Logged Out");
-    }
 
     return (
         <SafeAreaView>
             <Text>this is the settings menu, currently WIP. This should just have simple account functions (if logged in),
                 and maybe a darkmode filter
             </Text>
-            <Text style = {[styles.input, styles.optionText]}>
-                Current Username:
-            </Text>
-            <TextInput
-              style = {[styles.input, styles.optionText]}
-              defaultValue= {SAMPLE_USER[0].display_name}
-              onChangeText={onChangeText}
-            />
-            <TouchableOpacity
-                style={[styles.input, styles.button]}
-                onPress={handleUserChange}>
-                <Text style={styles.buttonText}>Save</Text>
-            </TouchableOpacity>
+
             <Option text = "Dark Theme"/>
-            <Button
-                onPress = {handleLogOut}
-                title= "Log Out (will conditionally render once i get contexts working)"
-            />
         </SafeAreaView>
     );
 }
