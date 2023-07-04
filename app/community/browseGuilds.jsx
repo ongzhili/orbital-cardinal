@@ -67,6 +67,10 @@ const SAMPLE_GUILDS = [
 
 export function GuildRender({ item, setGuild, selectedGuild}) {
 
+  const handleGuildUpdate = () => {
+    setGuild(item);
+  };
+
     return (
         <View style={item === selectedGuild ? styles.buttonSelected : styles.button}>
           <Button onPress={handleGuildUpdate}>
@@ -85,6 +89,7 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
 
 
   export function DropDown({guild}) {
+    const [joined, setJoined] = new useState(false);
     const currentUser = useAuth();
     console.log('dropdown');
     console.log(guild);
@@ -101,10 +106,12 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
       if (error) {
         console.log(error);
       }
+      setJoined(true);
+      
     
     }
 
-    if (guild.users.includes(currentUser.user.id)) {
+    if (guild.users.includes(currentUser.user.id) || joined) {
       return (
         <Link href="./Community">
           <Button style={{ textAlign: 'center', textColor: 'red' }}>
@@ -173,11 +180,6 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
               </Text>
               {selectedGuild.id !== -1 && (
                 <DropDown guild = {selectedGuild}></DropDown>
-              // <Link href="./Community">
-              //   <Button style={{ textAlign: 'center', textColor: 'red' }}>
-              //     Go
-              //   </Button>
-              // </Link>
       )}
         </View>
           <FlatList

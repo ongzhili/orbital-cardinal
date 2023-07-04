@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet, FlatList,} from "react-native";
 import { Button } from "react-native-paper";
 import { GuildContext } from "../../contexts/guild";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { supabase } from '../../lib/supabase';
 
 //TODO: Figure out the format
 
@@ -52,11 +53,27 @@ const SAMPLE_ACTIVITY = [
 
 
 export function PostRender({ item }) {
+    const date = new Date(item.created_at);
+    const [display, setDisplay] = new useState('');
 
-  
+    const handleName = async () => {
+        const {data, error} = await supabase
+          .from('Users')
+          .select('display_name', 'user_id')
+          .eq('user_id', item.user_id)
+          .limit(1);
+        if (error) {
+            setErrMsg(error.message);
+        }
+
+        setDisplay(data[0].display_name);
+
+    }
+    handleName();
+
     return (
         <View style = {styles.description}>
-            <Text>{item.userid + " " + item.activityType + " at " + item.time}</Text>
+            <Text>{display + " " + item.activity_type + " at " + date}</Text>
         </View>
       );
   }
@@ -64,12 +81,54 @@ export function PostRender({ item }) {
 
 export default function Community() {
     const currentGuild = useContext(GuildContext);
+    const [recentactivity, setRecentactivity] = new useState();
+    const [init, setInit] = new useState(false);
+    const [owner, setOwner] = new useState('');
     console.log(currentGuild);
+
+    const getOwnerName = async (ownerid) => {
+        const {data, error} = await supabase
+            .from('Users')
+            .select('display_name', 'user_id')
+            .eq('user_id', ownerid)
+            .limit(1);
+        if (error) {
+            setErrMsg(error.message);
+            console.log('error in obtaining ownername')
+            console.log(error);
+        }
+        setOwner(data[0].display_name);
+    }
+
+    const handleAllPosts = async (guildid) => {
+        const {data, error} = await supabase
+            .from('Activity')
+            .select('*')
+            .eq('guild', guildid)
+        if (error) {
+            setErrMsg(error.message);
+            console.log('error in obtaining posts')
+            console.log(error);
+        } 
+        console.log(data);
+        setRecentactivity(data);
+        
+      
+    }
+
+    if (!init) {
+        handleAllPosts(currentGuild.guild.Guild_ID);
+        getOwnerName(currentGuild.guild.owner);
+        setInit(true);
+    }
 
     return (
         <SafeAreaView>
             <Text style = {styles.title}>
                 {currentGuild.guild.title}
+            </Text>
+            <Text style = {styles.description}>
+                {"created by: " + owner}
             </Text>
             <Text style = {styles.description}>
                 {currentGuild.guild.description}
@@ -83,7 +142,7 @@ export default function Community() {
                 Recent Activity
             </Text>
             <FlatList
-            data={SAMPLE_ACTIVITY}
+            data={recentactivity}
             renderItem={({ item }) => (
               <PostRender item={item} />
             )}>
