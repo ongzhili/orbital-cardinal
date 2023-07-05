@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect} from 'react';
 import { View, TextInput, StyleSheet, Button, Text } from 'react-native';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/auth';
@@ -13,6 +13,16 @@ export default function MyForm() {
   const currentUser = useAuth();
   const currentGuild = useContext(GuildContext);
   const router = useRouter();
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   const handleInputChange = (input, setInput) => {
     setInput(input);
