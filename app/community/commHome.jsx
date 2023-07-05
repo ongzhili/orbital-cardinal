@@ -28,6 +28,11 @@ const PAGES = [
       title: 'User Settings',
       link: "./userSettings",
     },
+    {
+      id: '4',
+      title: 'Create a Community',
+      link: "./CreateGuild",
+    },
     
   ];
 

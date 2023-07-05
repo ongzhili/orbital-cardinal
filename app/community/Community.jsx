@@ -6,51 +6,6 @@ import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { supabase } from '../../lib/supabase';
 
-//TODO: Figure out the format
-
-const SAMPLE_ACTIVITY = [
-    {
-        time: 'june 20th',
-        activityType: 'Joined',
-        userid: 1,
-        
-    },
-    {
-        time: 'june 21th',
-        activityType: 'Completed Quiz',
-        userid: 1,
-        score: 8,
-        quizid: 1
-    },
-    {
-        time: 'june 22th',
-        activityType: 'Completed Quiz',
-        userid: 1,
-        score: 9,
-        quizid: 1
-    },
-    {
-        time: 'june 23th',
-        activityType: 'Joined',
-        userid: 2,
-    },
-    {
-        time: 'june 20th',
-        activityType: 'Completed Quiz',
-        userid: 1,
-        score: 10,
-        quizid: 1
-
-    },
-    {
-        time: 'june 20th',
-        activityType: 'Completed Quiz',
-        userid: 2,
-        score: 7,
-        quizid: 1
-    },
-]
-
 
 export function PostRender({ item }) {
     const date = new Date(item.created_at);

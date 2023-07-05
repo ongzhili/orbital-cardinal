@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, FlatList, Image, ScrollView } from 'react-native';
 import { Text, Button, TextInput } from 'react-native-paper';
-import { Link } from 'expo-router';
+import { Link, useRouter} from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createContext, useContext, useEffect, useState } from "react";
 import { GuildContext } from "../../contexts/guild";
@@ -89,6 +89,7 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
 
 
   export function DropDown({guild}) {
+    const router = useRouter();
     const [joined, setJoined] = new useState(false);
     const currentUser = useAuth();
     console.log('dropdown');
@@ -107,6 +108,7 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
         console.log(error);
       }
       setJoined(true);
+      router.replace("./Community");
       
     
     }
