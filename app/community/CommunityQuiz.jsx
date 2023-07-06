@@ -4,6 +4,9 @@ import { useContext, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from "expo-router";
+import { QuizContext } from "../../contexts/quiz";
+import { supabase } from "../../lib/supabase";
 
 const SAMPLE_DECKS = [
     {
@@ -41,34 +44,39 @@ const SAMPLE_DECKS = [
 
 const DEFAULT_DECK = [
     {
-        title: "",
+        title: "edrtyuhedrtuhj",
+        description: "",
         deck: {},
     }
 ]
 
-export function OptionRender({ item, setDeck, selected, onSelect }) {
+
+
+export function OptionRender({ item, setDeck, selected, onSelect, quiz }) {
+    const router = useRouter();
     const handleDeckUpdate = () => {
-      setDeck(item.deck);
-      onSelect(item.title);
-      console.log(item.title);
+      setDeck(item);
+      onSelect(item);
+      console.log(quiz);
     };
   
     const handleLBClick = () => {
-      //TODO: Go to leaderboard, make leaderboard page
+      router.replace("./Leaderboard");
     };
   
     const handleDeckPlayClick = () => {
       //TODO: Go to modified deckplay, that submits score after completion
     };
+
   
     const renderDropdown = () => {
-      if (selected) {
+      if (item.title == quiz.title) {
         return (
           <View style={styles.dropdownContainer}>
-            <Button style = {styles.button} onPress={handleLBClick}>
+            <Button style = {styles.button} onPress={() => handleLBClick()}>
               <Text style = {styles.title}>Leaderboards</Text>
             </Button>
-            <Button style = {styles.button} onPress={handleDeckPlayClick}>
+            <Button style = {styles.button} onPress={() => handleDeckPlayClick()}>
               <Text style = {styles.title}>Play</Text>
             </Button>
           </View>
@@ -91,28 +99,44 @@ export function OptionRender({ item, setDeck, selected, onSelect }) {
 
 
 export default function CommunityQuiz() {
+    const [init, setInit] = useState(false);
     const currentGuild = useContext(GuildContext);
-    const [deck, setDeck] = useState(DEFAULT_DECK);
-    const [selectedDeck, setSelectedDeck] = useState(null);
+    const currentQuiz = useContext(QuizContext);
+    const [guildquiz, setGuildquiz] = useState(null);
+
+    
 
     const handleSelect = (deck) => {
-        setSelectedDeck(deck);
+        currentQuiz.setQuiz(deck);
     };
 
-    //TODO: async function to get quizzes that matches guild ID.
-    // shd be sth like to get guild quiz IDs:
-    // let quizzes = currentGuild.Quizzes()
-    // shd just be sth like supabase.from('Decks').select().in('id', quizzes)
+    const handleGuildQuizzes = async () => {
+      const { data, error } = await supabase
+        .from('Decks')
+        .select('*')
+        .in('id', currentGuild.guild.quizzes);
 
-    console.log(SAMPLE_DECKS);
+      if (error) {
+        console.log(error);
+      }
+      setGuildquiz(data);
+
+
+    }
+
+    if (!init) {
+      handleGuildQuizzes();
+      //console.log(currentQuiz.quiz.title);
+      setInit(true);
+    }
     return (
         <SafeAreaView>
             <Text>
                 asdasdasdas
             </Text>
         <FlatList
-          data={SAMPLE_DECKS}
-            renderItem={({ item }) => <OptionRender item={item} setDeck={setDeck} selected = {item.title ==selectedDeck} onSelect={handleSelect}/>}
+          data={guildquiz}
+            renderItem={({ item }) => <OptionRender item={item} setDeck={currentQuiz.setQuiz} selected = {item.title == currentQuiz.quiz.title} onSelect={handleSelect} quiz ={currentQuiz.quiz}/>}
         />
             <Text>asdasdsa</Text>
         </SafeAreaView>

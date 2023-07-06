@@ -129,8 +129,6 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
       )
     }
 
-
-    //TODO: Change Join to Go once joined.
   }
 
 

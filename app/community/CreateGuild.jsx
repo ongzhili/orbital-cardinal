@@ -6,7 +6,7 @@ import { GuildContext } from '../../contexts/guild';
 import { useRouter } from 'expo-router';
 
 
-export default function MyForm() {
+export default function CreateGuild() {
   const [guildtitle, setGuildtitle] = useState('');
   const [desc, setDesc] = useState('');
   const [error, setError] = useState(null);
