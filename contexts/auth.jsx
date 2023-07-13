@@ -27,6 +27,8 @@ export function useProtectedRoute(user) {
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
+    console.log(user);
+
   
     useEffect(() => {
       const { data } = supabase.auth.onAuthStateChange((event, session) => {

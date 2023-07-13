@@ -5,12 +5,6 @@ import { QuizContext } from '../../contexts/quiz';
 import { GuildContext } from '../../contexts/guild';
 import { supabase } from '../../lib/supabase';
 
-const data = [
-  { user: 'John', score: 80 },
-  { user: 'Jane', score: 95 },
-  { user: 'Mike', score: 70 },
-  { user: 'Lisa', score: 85 },
-];
 
 export default function Leaderboard() {
     const [init, setInit] = useState(false);

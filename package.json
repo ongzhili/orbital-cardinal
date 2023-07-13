@@ -15,7 +15,7 @@
   "dependencies": {
     "@expo/config-plugins": "~6.0.0",
     "@nozbe/watermelondb": "^0.26.0",
-    "@react-native-async-storage/async-storage": "1.17.11",
+    "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-navigation/native": "^6.1.6",
     "@skam22/watermelondb-expo-plugin": "^1.0.1",
     "@supabase/supabase-js": "^2.22.0",

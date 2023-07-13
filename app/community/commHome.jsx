@@ -8,7 +8,7 @@ import { AuthContext, useProtectedRoute } from "../../contexts/auth";
 import { useContext, useState} from 'react';
 import { useEffect } from 'react';
 import { useAuth } from '../../contexts/auth';
-import { supabase } from '../../lib/supabase';
+import { supabase, getSesh, getUser } from '../../lib/supabase';
 
 
 
@@ -53,13 +53,15 @@ function Item( {item} ) {
 
 export default function commHome() {
   const currentUser = useAuth();
+  console.log(currentUser);
   const [display, setDisplay] = new useState("");
   const [init, setInit] = new useState(false);
   const [errMsg, setErrMsg] = useState('');
+  const router = useRouter();
   
-
-  if (!currentUser.user || currentUser.user == null) {
+  if (!currentUser.user) {
     console.log('Not Logged in! (from commHome)');
+    //router.replace("./login");
     return <Redirect href = "./login" />
   }
 
@@ -73,7 +75,7 @@ export default function commHome() {
         setErrMsg(error.message);
     }
     
-    console.log(data);
+    //console.log(data);
     setDisplay(data[0].display_name);
   }
 

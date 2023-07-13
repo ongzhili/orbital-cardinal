@@ -5,6 +5,8 @@ import { StyleSheet, FlatList, Image } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { useAuth } from '../contexts/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { supabase, getSesh } from '../lib/supabase';
 
 
 
@@ -16,7 +18,7 @@ const DATA = [
     },
     {
       id: '2',
-      title: 'Edit',
+      title: 'Create',
       link: "./play/ModeSelect",
     },
     {
@@ -75,8 +77,22 @@ const styles = StyleSheet.create({
 
 
 export function StartingPage() {
-    const currentUser = useAuth();
-    console.log(`StartingPage - ${currentUser}`);
+  // const currentUser = useAuth();
+  // const handleName = async () => {
+  //   const {data, error} = await supabase
+  //     .from('Users')
+  //     .select('display_name', 'user_id')
+  //     .eq('user_id', currentUser.user.id)
+  //     .limit(1);
+  //   if (error) {
+  //       setErrMsg(error.message);
+  //   }
+    
+  //   //console.log(data);
+  //   console.log(data[0].display_name);
+  // }
+
+  // handleName();
     return (
       <View>
         <Image style = {styles.image} source = {require('../assets/adaptive-icon.png')}>

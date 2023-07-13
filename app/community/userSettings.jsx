@@ -26,7 +26,7 @@ export default function usetSettings() {
     }
     
     const handleLogOut = async () => {
-        let { error } = await supabase.auth.signOut()
+        let { error } = await supabase.auth.signOut();
         console.log("User Logged Out");
         router.replace("./commHome");
     }
