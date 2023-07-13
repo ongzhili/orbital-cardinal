@@ -61,7 +61,7 @@ export default function commHome() {
   
   if (!currentUser.user) {
     console.log('Not Logged in! (from commHome)');
-    //router.replace("./login");
+    //router.redirect("./login");
     return <Redirect href = "./login" />
   }
 

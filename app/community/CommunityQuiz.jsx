@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from "expo-router";
 import { QuizContext } from "../../contexts/quiz";
 import { supabase } from "../../lib/supabase";
+import { useAuth } from "../../contexts/auth";
 
 const SAMPLE_DECKS = [
     {
@@ -103,6 +104,8 @@ export default function CommunityQuiz() {
     const currentGuild = useContext(GuildContext);
     const currentQuiz = useContext(QuizContext);
     const [guildquiz, setGuildquiz] = useState(null);
+    const currentUser = useAuth();
+    const router = useRouter();
 
     
 
@@ -124,6 +127,24 @@ export default function CommunityQuiz() {
 
     }
 
+    const goToAddDeck = () => {
+      router.replace("./AddDeckSelect");
+
+    }
+
+    const renderAddDeck = () => {
+      if (currentUser.user.id == currentGuild.guild.owner) {
+        return (
+          <Button onPress={goToAddDeck}>
+            <Text>
+              Add Deck
+            </Text>
+          </Button>
+        )
+      } else {
+        return null;
+      }
+    }
     if (!init) {
       handleGuildQuizzes();
       //console.log(currentQuiz.quiz.title);
@@ -138,7 +159,7 @@ export default function CommunityQuiz() {
           data={guildquiz}
             renderItem={({ item }) => <OptionRender item={item} setDeck={currentQuiz.setQuiz} selected = {item.title == currentQuiz.quiz.title} onSelect={handleSelect} quiz ={currentQuiz.quiz}/>}
         />
-            <Text>asdasdsa</Text>
+        {renderAddDeck()}
         </SafeAreaView>
     )
 

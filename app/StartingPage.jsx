@@ -28,8 +28,8 @@ const DATA = [
     },
     {
       id: '4',
-      title: 'Settings',
-      link: "settings",
+      title: 'For Joe',
+      link: "./BrowseDecks",
     },
   ];
 
