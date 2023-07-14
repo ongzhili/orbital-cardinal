@@ -18,8 +18,8 @@ const DATA = [
     },
     {
       id: '2',
-      title: 'Create',
-      link: "./play/ModeSelect",
+      title: 'Edit',
+      link: "./Edit/EditSelect",
     },
     {
       id: '3',

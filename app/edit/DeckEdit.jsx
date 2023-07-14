@@ -15,11 +15,9 @@ export default function deckEdit() {
       <FlatList
       data = {currentDeck.deck}
       renderItem = {({item}) => <FlashCard flashCard={item} />}
-      keyExtractor={item => item.id}>
-
-      </FlatList>
+      keyExtractor={item => item.id}
+      ></FlatList>
       </SafeAreaView>
-
     );
 }
 
