@@ -8,11 +8,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { createContext, useContext, useEffect, useState } from "react";
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../styles'
-import { Deck } from '../../lib/model';
+import { Card } from '../../lib/model';
 
-export default function DeckBuild() {
+export default function CardBuild() {
   const [name, setName] = useState("")
-  const [desc, setDesc] = useState("")
+  const [front, setFront] = useState("")
+  const [back, setBack] = useState("")
   const router = useRouter()
 
   return (
@@ -22,15 +23,20 @@ export default function DeckBuild() {
       placeholder='Name'
       onChangeText={setName}
       ></TextInput>
-      <Text style = {styles.title}>{"Description:"}</Text>
+      <Text style = {styles.title}>{"Front:"}</Text>
       <TextInput
-      placeholder='Description'
-      onChangeText={setDesc}
+      placeholder='Front'
+      onChangeText={setFront}
+      ></TextInput>
+      <Text style = {styles.title}>{"Back:"}</Text>
+      <TextInput
+      placeholder='Back'
+      onChangeText={setBack}
       ></TextInput>
       <Button
       style = {styles.button}
       onPress = {() => {
-        Deck.makeDeck(name, desc)
+        Card.makeCard(name, front, back)
         router.back()
       }}
       >
