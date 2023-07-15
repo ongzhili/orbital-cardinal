@@ -65,15 +65,15 @@ const SAMPLE_GUILDS = [
 
 ]
 
-export function GuildRender({ item, setGuild, selectedGuild}) {
+export function ChoiceRender({ item, setItem, selectedItem}) {
 
-  const handleGuildUpdate = () => {
-    setGuild(item);
+  const handleItemUpdate = () => {
+    setItem(item);
   };
 
     return (
-        <View style={item === selectedGuild ? styles.buttonSelected : styles.button}>
-          <Button onPress={handleGuildUpdate}>
+        <View style={item === selectedItem ? styles.buttonSelected : styles.button}>
+          <Button onPress={handleItemUpdate}>
             <Text style={styles.title}>{item.title}</Text>
           </Button>
         </View>
@@ -186,7 +186,7 @@ export function GuildRender({ item, setGuild, selectedGuild}) {
           style={{}}
           data={dataToSend}
           renderItem={({ item }) => (
-            <GuildRender item={item} setGuild={handleGuildSelect} selectedGuild={selectedGuild} />
+            <ChoiceRender item={item} setItem={handleGuildSelect} selectedItem={selectedGuild} />
           )}
           keyExtractor={(item) => item.title}
         />
