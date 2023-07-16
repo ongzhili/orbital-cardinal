@@ -17,29 +17,40 @@ const OPTIONS = [
   {
     id: 1,
     title: 'Edit Deck',
-    link: "./DeckEdit",
+    link: "../DeckSelect",
+    next: "./edit/DeckEdit"
   },
   {
     id: 2,
     title: 'Make Card',
     link: './CardBuild'
   },
+  {
+    id: 3,
+    title: 'Edit Card',
+    link: ''
+  }
 ]
   
-function Item( {item} ) { 
+function Item( {item, onPress, router} ) { 
   return (
-    <View style = {styles.button}>
-      <Link href= {item.link}>
-      <Button style = {styles.button}>
-        <Text style = {styles.title}>
-          {item.title}
-        </Text>
-      </Button>
-      </Link>
-    </View>
+      <View style = {styles.button}>
+        <Button 
+        style = {styles.button}
+        onPress = {() => {
+          console.log(`ModeSelect - ${item.title}`)
+          console.log(item.next)
+          onPress(item.next)
+          router.push(item.link)
+        }}
+        >
+            <Text style = {styles.title}>
+                {item.title}
+            </Text>
+        </Button>
+      </View>
   )
 }
-
 
 export default function EditSelect() {
   const playCont = useContext(PlayContext)
@@ -49,9 +60,16 @@ export default function EditSelect() {
     <View>
       <FlatList
       data = {OPTIONS}
-      renderItem = {({item}) => <Item item={item} />}
+      renderItem = {({item}) => 
+        <Item 
+        item = {item} 
+        onPress = {playCont.setLink}
+        router = {router}
+        />}
       keyExtractor={item => item.id}>
+
       </FlatList>
+
     </View>
   );
 }

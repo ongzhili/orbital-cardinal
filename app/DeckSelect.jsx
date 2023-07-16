@@ -6,8 +6,8 @@ import { Text, Button, TextInput } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createContext, useContext, useEffect, useState } from "react";
-import { PlayContext } from "../../contexts/play";
-import { database } from '../..';
+import { PlayContext, usePlay } from "../contexts/play";
+import { database } from '..';
 import { useRouter } from "expo-router";
 
 export function DeckRender({ item, setDeck, nextPage, router }) {
@@ -35,7 +35,7 @@ export default function DeckSelect({deck}) {
   const [loading, setLoading] = useState(true)
 
   const playCont = useContext(PlayContext);
-  const link = `./` + playCont.mode
+  const link = playCont.next
   const router = useRouter()
 
   if (loading) {

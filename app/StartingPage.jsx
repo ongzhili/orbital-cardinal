@@ -19,7 +19,7 @@ const DATA = [
     {
       id: '2',
       title: 'Edit',
-      link: "./Edit/EditSelect",
+      link: "./edit/EditSelect",
     },
     {
       id: '3',
