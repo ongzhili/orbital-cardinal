@@ -22,7 +22,7 @@ export function DeckDropDown({deck, cardArray, setCardArray}) {
 
     const handleAdd = async () => { 
         let { data, error } = await supabase
-            .rpc('fetch_carddeck', {
+            .rpc('fetch_test', {
                 deckid: deck.id
         })
 
@@ -32,8 +32,8 @@ export function DeckDropDown({deck, cardArray, setCardArray}) {
         else {
             console.log(data)
             // Idk why, but it only fetches 1 item even though my set is 2 items.
-            data.forEach(item => fetchMatchingCard(item.card_id));
-            console.log(cardArray);
+            //data.forEach(item => fetchMatchingCard(item.card_id));
+            //console.log(cardArray);
         }
 
         // TODO: Save to local DB.

@@ -6,13 +6,11 @@ import { QuizProvider } from "../../contexts/quiz";
 
 export default function Root() {
     return (
-        <AuthProvider>
             <GuildProvider>
                 <QuizProvider>
                     <Slot />
                 </QuizProvider>
             </GuildProvider>
-        </AuthProvider>
             //<Slot></Slot>
     )
 }

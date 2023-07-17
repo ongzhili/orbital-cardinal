@@ -66,7 +66,7 @@ export function OptionRender({ item, setDeck, selected, onSelect, quiz }) {
     };
   
     const handleDeckPlayClick = () => {
-      //TODO: Go to modified deckplay, that submits score after completion
+      router.push("./GuildQuiz");
     };
 
   
