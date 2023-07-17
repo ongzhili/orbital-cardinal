@@ -14,17 +14,16 @@ export default function Leaderboard() {
 
     const getAllScores = async () => {
         const { data, error } = await supabase
-        .from('Scores')
-        .select('*')
-        .eq('quiz_id', currentQuiz.quiz.id)
-        .eq('guild_id', currentGuild.guild.Guild_ID);
+          .rpc('fetch_scores', {
+            guildid: currentGuild.guild.Guild_ID, 
+            quizid: currentQuiz.quiz.id
+        })
 
         if (error) {
             console.log(error);
         }
         console.log(data);
         setScores(data);
-      
 
     }
     if (!init) {
@@ -40,7 +39,7 @@ export default function Leaderboard() {
         return (
         <View style={styles.item}>
             <View style={styles.column}>
-            <Text style={styles.value}>{item.user_id}</Text>
+            <Text style={styles.value}>{item.display_name}</Text>
             <Text style={styles.value}>{item.score}</Text>
             </View>
         </View>);

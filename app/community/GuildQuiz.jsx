@@ -1,23 +1,25 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { View, ScrollView, Dimensions } from 'react-native';
-import { StatusBar, setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
-import { StyleSheet, FlatList, Image } from 'react-native';
 import { Text, Button, TextInput } from 'react-native-paper';
 import { useContext, useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { PlayContext } from '../../contexts/play';
-import { Card, Deck } from '../../lib/model'
+import { QuizContext } from '../../contexts/quiz';
+import { GuildContext } from '../../contexts/guild';
+import { useAuth } from '../../contexts/auth';
 import FlipCard from 'react-native-flip-card'
-import { database } from '../..';
 import { useRouter } from "expo-router";
 import styles from '../styles';
 import { supabase } from '../../lib/supabase';
 
 export default function GuildQuiz() {
+  // States used in the flashcard game.
+
   const [cards, setCards] = useState([]);
   const [currentCard, setCurrentCard] = useState(0)
   const [loading, setLoading] = useState(true);
-  const deck = useContext(PlayContext).deck;
+  const guild = useContext(GuildContext).guild
+  const deck = useContext(QuizContext).quiz
+  const currentUser = useAuth()
   const [answer, setAnswer] = useState('')
   const router = useRouter()
   const [flip, setFlip] = useState(false)
@@ -28,10 +30,47 @@ export default function GuildQuiz() {
   const [finished, setFinished] = useState(false)
   const [allowNext, setAllowNext] = useState(true)
 
-  if (loading) {
-    setLoading(false)
-    // Fetch Cards using deck ID;
+  // Handles fetching of the cards (returned as an array), using the deckid of given context
+
+  const handleAdd = async () => { 
+    let { data, error } = await supabase
+        .rpc('fetch_test', {
+            deckid: deck.id
+    })
+
+    if (error) {
+        console.log(error)
+    }
+    else {
+    console.log(data);
+    setCards(data);
+    }
   }
+
+  // Handles Score submission, then router.backs.
+
+  const handleScoreSubmission = async (score) => {
+    
+    let { data, error } = await supabase
+        .rpc('submit_score', {
+            deckid: deck.id, 
+            guildid: guild.Guild_ID,
+            score: score, 
+            userid: currentUser.user.id
+    })
+
+    if (error) console.log(error)
+    router.back();
+  }
+
+  // If not initialized, initialises.
+
+  if (loading) {
+    setLoading(false);
+    handleAdd();
+  }
+
+  // Render
 
   return (
     <SafeAreaView>
@@ -109,7 +148,7 @@ export default function GuildQuiz() {
             </ScrollView>
           : <View>
               <Text style = {styles.title}>{`Your Score: ${numCorrect}/${cards.length}`}</Text>
-              <Button style = {styles.button} onPress = {router.back}>
+              <Button style = {styles.button} onPress = {() => handleScoreSubmission(correct)}>
                 <Text style = {styles.title}>{"Back"}</Text>
               </Button>
             </View>

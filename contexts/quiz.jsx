@@ -19,3 +19,7 @@ export function QuizProvider({children}) {
 
     return (<QuizContext.Provider value = { {quiz , setQuiz} }>{children}</QuizContext.Provider>);
 }
+
+export function useQuiz() {
+    return useContext(QuizContext)
+  }
