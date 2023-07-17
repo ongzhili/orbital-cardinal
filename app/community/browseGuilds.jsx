@@ -9,6 +9,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { GuildContext } from "../../contexts/guild";
 import { useAuth } from '../../contexts/auth';
 import { supabase } from '../../lib/supabase';
+import styles from '../styles';
 
 
 const SAMPLE_GUILDS = [
@@ -113,17 +114,19 @@ export function ChoiceRender({ item, setItem, selectedItem}) {
     
     }
 
+    const handleGo = () => {
+      router.push("./Community");
+    }
+
     if (guild.users.includes(currentUser.user.id) || joined) {
       return (
-        <Link href="./Community">
-          <Button style={{ textAlign: 'center', textColor: 'red' }}>
-            Go
-          </Button>
-        </Link>
+        <Button mode="flat" buttonColor="#8f8f8f" labelStyle={styles.joinButton} onPress={handleGo}>
+          Go
+        </Button>
         )
     } else {
       return (
-        <Button onPress={handleJoin}>
+        <Button mode="flat" buttonColor="#8f8f8f" labelStyle={styles.joinButton} onPress={handleJoin}>
           Join
         </Button>
       )
@@ -158,7 +161,6 @@ export function ChoiceRender({ item, setItem, selectedItem}) {
           console.log('error in obtaining guilds')
           console.log(error);
       } 
-      console.log(data[0]);
       setDataToSend(data);
       
 
@@ -171,17 +173,24 @@ export function ChoiceRender({ item, setItem, selectedItem}) {
 
   
     return (
-      <SafeAreaView style={{ flexDirection: 'column' }}>
-        <View style={styles.button2}>
-              <Text style={styles.title}>{"Selected Guild: " + selectedGuild.title}</Text>
-              <Text style={styles.desc}>{selectedGuild.description.length > MAX_DESCRIPTION_LENGTH
+      <SafeAreaView style={{ flexDirection: 'column', flex: 1}}>
+
+        
+        <View style={styles.listHeader}>
+              <Text style={styles.selectionTitle}>{"Selected Guild: " + selectedGuild.title}</Text>
+              <Text style={styles.selectionDesc}>{selectedGuild.description.length > MAX_DESCRIPTION_LENGTH
                 ? selectedGuild.description.substring(0, MAX_DESCRIPTION_LENGTH) + '...'
                 : selectedGuild.description}
               </Text>
+         <View style={styles.bottomButtonContainer}>
               {selectedGuild.id !== -1 && (
                 <DropDown guild = {selectedGuild}></DropDown>
-      )}
+
+              )}
+         </View> 
         </View>
+        <ScrollView style = {{flex: 1}}>
+        <View>
           <FlatList
           style={{}}
           data={dataToSend}
@@ -190,53 +199,13 @@ export function ChoiceRender({ item, setItem, selectedItem}) {
           )}
           keyExtractor={(item) => item.title}
         />
+        </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
 
-  const styles = StyleSheet.create({
-    button: {
-      backgroundColor:'#D9D9D9',
-      padding: 10,
-      marginVertical: 8,
-      marginHorizontal: 40,
 
-    },
-    button2: {
-      backgroundColor:'#D9D9D9',
-      padding: 10,
-      marginVertical: 8,
-      marginHorizontal: 40,
-      
-
-    },
-      buttonSelected: {
-        backgroundColor:'red',
-        padding: 10,
-        marginVertical: 8,
-        marginHorizontal: 40,
-      },
-      title: {
-        textAlign: 'center',
-        fontSize: 25,
-        alignSelf: 'stretch',
-        lineHeight: 30,
-      },
-      desc: {
-        textAlign: 'center',
-        fontSize: 15,
-        alignSelf: 'stretch',
-        lineHeight: 30,
-      },
-    image: {
-      flex: 1,
-      width: 400,
-      height: 400,
-      resizeMode: 'stretch' ,
-      padding: 100,
-      marginVertical:20,
-    }
-  });
 
 
 

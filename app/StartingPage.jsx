@@ -18,7 +18,7 @@ const DATA = [
     },
     {
       id: '2',
-      title: 'Edit',
+      title: 'Create',
       link: "./edit/EditSelect",
     },
     {
@@ -77,22 +77,6 @@ const styles = StyleSheet.create({
 
 
 export function StartingPage() {
-  // const currentUser = useAuth();
-  // const handleName = async () => {
-  //   const {data, error} = await supabase
-  //     .from('Users')
-  //     .select('display_name', 'user_id')
-  //     .eq('user_id', currentUser.user.id)
-  //     .limit(1);
-  //   if (error) {
-  //       setErrMsg(error.message);
-  //   }
-    
-  //   //console.log(data);
-  //   console.log(data[0].display_name);
-  // }
-
-  // handleName();
     return (
       <View>
         <Image style = {styles.image} source = {require('../assets/adaptive-icon.png')}>

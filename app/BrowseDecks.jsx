@@ -22,7 +22,7 @@ export function DeckDropDown({deck, cardArray, setCardArray}) {
 
     const handleAdd = async () => { 
         let { data, error } = await supabase
-            .rpc('fetch_test', {
+            .rpc('fetch_test2', {
                 deckid: deck.id
         })
 

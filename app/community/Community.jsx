@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList,} from "react-native";
+import { View, Text, StyleSheet, FlatList, ScrollView,} from "react-native";
 import { Button } from "react-native-paper";
 import { GuildContext } from "../../contexts/guild";
 import { useContext, useState } from "react";
@@ -37,6 +37,52 @@ export function PostRender({ item }) {
   }
 
 
+export function LeaveOrDisband({userid, guildid, ownerid}) {
+    const router = useRouter();
+    const handleLeave = async (userid, guildid) => {
+        const { data, error } = await supabase
+            .rpc('leave_guild', {
+                userid: userid,
+                guildid: guildid
+            });
+
+        if (error) {
+            console.log(error);
+        }
+        router.replace("./commHome")
+    
+    }
+
+    const handleDisband = async (userid, guildid) => {
+        const { data, error } = await supabase
+        .rpc('disband_guild', {
+            guildid: guildid
+        });
+
+    if (error) {
+        console.log(error);
+    }
+    router.replace("./commHome")
+
+        //TODO: Conditional rendering of this button for disbanding guild instead of leave for guild owner.
+    }
+    if (userid == ownerid) {
+        return (
+            <Button onPress = {() => handleDisband(userid, guildid)}>
+                    Disband Guild
+            </Button>
+        );
+    } else {
+        return (
+            <Button onPress = {() => handleLeave(userid, guildid)}>
+                    Leave Guild
+            </Button>
+        );
+    }
+
+
+}
+
 export default function Community() {
     const currentGuild = useContext(GuildContext);
     const [recentactivity, setRecentactivity] = new useState();
@@ -71,14 +117,11 @@ export default function Community() {
             console.log('error in obtaining posts')
             console.log(error);
         } 
-        setRecentactivity(data);
+        setRecentactivity(data);w
         
       
     }
     
-    const handleDisband = () => {
-        //TODO: Conditional rendering of this button for disbanding guild instead of leave for guild owner.
-    }
 
     const handleLeave = async (userid, guildid) => {
         const { data, error } = await supabase
@@ -103,7 +146,7 @@ export default function Community() {
 
     return (
         <SafeAreaView>
-            <View>
+            <ScrollView>
                 <Text style = {styles.title}>
                     {currentGuild.guild.title}
                 </Text>
@@ -127,10 +170,9 @@ export default function Community() {
                 <PostRender item={item} />
                 )}>
                 </FlatList>
-            </View>
-            <Button onPress = {() => handleLeave(currentUser.user.id, currentGuild.guild.Guild_ID)}>
-                Leave Guild
-            </Button>
+
+            <LeaveOrDisband userid = {currentUser.user.id} guildid={currentGuild.guild.Guild_ID} ownerid={currentGuild.guild.owner}/>
+            </ScrollView>
             
         </SafeAreaView>
     )
