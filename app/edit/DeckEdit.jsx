@@ -40,8 +40,8 @@ export default function DeckEdit() {
   const deck = useContext(PlayContext).deck
 
   return (
-    <ScrollView>
-      <Text style = {styles.title}>{deck.title}</Text>
+    <View>
+      <Text style = {styles.title}>{deck.name}</Text>
       <Text style = {styles.title}>{deck.description}</Text>
       <FlatList
       data = {OPTIONS}
@@ -50,6 +50,6 @@ export default function DeckEdit() {
       }
       keyExtractor={item => item.id}>
       </FlatList>
-    </ScrollView>
+    </View>
   );
 }

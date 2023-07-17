@@ -63,47 +63,47 @@ export default function Quiz() {
                 : null
               }
               <View style = {styles.buttonContainer}>
-              <View style = {{flexDirection: 'row'}}>
-                <TextInput
-                  placeholder = {"Answer"}
-                  onChangeText = {setAnswer}
-                  value = {answer}
-                ></TextInput>
+                <View style = {{flexDirection: 'row'}}>
+                  <TextInput
+                    placeholder = {"Answer"}
+                    onChangeText = {setAnswer}
+                    value = {answer}
+                  ></TextInput>
+                  <Button
+                  style = {styles.button}
+                  onPress = {() => {
+                    if (!allowNext) return
+                    if (correct == 0) {
+                    if (answer.toUpperCase() == cards[currentCard].back.toUpperCase()) {
+                      setCorrect(1)
+                      setNumCorrect(numCorrect + 1)
+                      setAnswer("");
+                    }
+                    else 
+                      setCorrect(2)
+                    }
+                    setFlip(!flip)
+                  }}
+                  >
+                      <Text style = {styles.title}>{correct == 0 ? "Submit" : "Flip"}</Text>
+                  </Button>
+                </View>
                 <Button
                 style = {styles.button}
                 onPress = {() => {
                   if (!allowNext) return
-                  if (correct == 0) {
-                  if (answer.toUpperCase() == cards[currentCard].back.toUpperCase()) {
-                    setCorrect(1)
-                    setNumCorrect(numCorrect + 1)
+                  if (currentCard < cards.length - 1) {
+                    setFlipRender(flipped)
+                    setCorrect(0)
+                    setCurrentCard(currentCard + 1)
                     setAnswer("");
                   }
                   else 
-                    setCorrect(2)
-                  }
-                  setFlip(!flip)
+                    setFinished(true)
                 }}
                 >
-                    <Text style = {styles.title}>{correct == 0 ? "Submit" : "Flip"}</Text>
+                    <Text style = {styles.title}>{currentCard < cards.length - 1 ? "Next Card" : "Finish"}</Text>
                 </Button>
-              </View>
-              <Button
-              style = {styles.button}
-              onPress = {() => {
-                if (!allowNext) return
-                if (currentCard < cards.length - 1) {
-                  setFlipRender(flipped)
-                  setCorrect(0)
-                  setCurrentCard(currentCard + 1)
-                  setAnswer("");
-                }
-                else 
-                  setFinished(true)
-              }}
-              >
-                  <Text style = {styles.title}>{currentCard < cards.length - 1 ? "Next Card" : "Finish"}</Text>
-              </Button>
               </View>
             </ScrollView>
           : <View>

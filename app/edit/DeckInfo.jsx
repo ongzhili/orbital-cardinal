@@ -12,9 +12,9 @@ import { Deck } from '../../lib/model';
 import { PlayContext } from '../../contexts/play';
 
 export default function DeckInfo() {
-  const deck = useContext(PlayContext)
-  const [name, setName] = useState(deck.name)
-  const [desc, setDesc] = useState(deck.description)
+  const deck = useContext(PlayContext).deck
+  const [name, setName] = useState()
+  const [desc, setDesc] = useState()
   const router = useRouter()
 
   return (
@@ -23,11 +23,13 @@ export default function DeckInfo() {
       <TextInput
       placeholder='Name'
       onChangeText={setName}
+      defaultValue={deck.name}
       ></TextInput>
       <Text style = {styles.title}>{"Description:"}</Text>
       <TextInput
       placeholder='Description'
       onChangeText={setDesc}
+      defaultValue={deck.description}
       ></TextInput>
       <Button
       style = {styles.button}
@@ -37,7 +39,7 @@ export default function DeckInfo() {
         router.back()
       }}
       >
-        <Text style = {styles.title}>{"Create"}</Text>
+        <Text style = {styles.title}>{"Save"}</Text>
       </Button>
     </ScrollView>
   )
