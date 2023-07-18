@@ -36,10 +36,13 @@ export function DeckDropDown({deck, cardArray, setCardArray}) {
 
     // Save to local DB.
     let arr = []
+    console.log("dfg")
     for (card of data) {
       arr.push(await Card.makeIfAbsent(card))
     }
+    console.log("asd")
     let dec = await Deck.update(deck)
+    console.log("123")
     await dec.setCards(arr)
   }
 
