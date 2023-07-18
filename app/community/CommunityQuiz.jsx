@@ -129,7 +129,10 @@ export default function CommunityQuiz() {
 
     const goToAddDeck = () => {
       router.replace("./AddDeckSelect");
+    }
 
+    const goToRemoveDeck = () => {
+      router.replace("./RemoveDeckSelect");
     }
 
     const renderAddDeck = () => {
@@ -145,6 +148,21 @@ export default function CommunityQuiz() {
         return null;
       }
     }
+
+    const renderRemoveDeck = () => {
+      if (currentUser.user.id == currentGuild.guild.owner) {
+        return (
+          <Button onPress={goToRemoveDeck}>
+            <Text>
+              Remove Deck
+            </Text>
+          </Button>
+        )
+      } else {
+        return null;
+      }
+    }
+
     if (!init) {
       handleGuildQuizzes();
       //console.log(currentQuiz.quiz.title);
@@ -152,14 +170,13 @@ export default function CommunityQuiz() {
     }
     return (
         <SafeAreaView>
-            <Text>
-                asdasdasdas
-            </Text>
+
         <FlatList
           data={guildquiz}
             renderItem={({ item }) => <OptionRender item={item} setDeck={currentQuiz.setQuiz} selected = {item.title == currentQuiz.quiz.title} onSelect={handleSelect} quiz ={currentQuiz.quiz}/>}
         />
         {renderAddDeck()}
+        {renderRemoveDeck()}
         </SafeAreaView>
     )
 

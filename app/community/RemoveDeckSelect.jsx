@@ -9,27 +9,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { GuildContext } from "../../contexts/guild";
 import { useAuth } from '../../contexts/auth';
 import { supabase } from '../../lib/supabase';
+import { DeckSelectRender } from './AddDeckSelect';
 
 const DEFAULT_DECK = {
   id: -1,
   title: 'None',
   description: '',
-}
-
-
-export function DeckSelectRender({ item, setSelectedDeck, selectedDeck}) {
-
-  const handleDeckUpdate = () => {
-    setSelectedDeck(item);
-  };
-
-    return (
-        <View style={item === selectedDeck ? styles.buttonSelected : styles.button}>
-          <Button onPress={handleDeckUpdate}>
-            <Text style={styles.title}>{item.title}</Text>
-          </Button>
-        </View>
-      );
 }
 
   export function DropDown({deck, guild, user}) {
@@ -38,9 +23,9 @@ export function DeckSelectRender({ item, setSelectedDeck, selectedDeck}) {
     console.log(guild.guild.Guild_ID);
     console.log(user.user.id);
 
-    const handleAdd = async () => {
+    const handleRemove = async () => {
       const { data, error } = await supabase
-      .rpc('add_deck', {
+      .rpc('remove_deck', {
           deckid: deck.id,
           guildid: guild.guild.Guild_ID,
           userid: user.user.id
@@ -54,8 +39,8 @@ export function DeckSelectRender({ item, setSelectedDeck, selectedDeck}) {
     }
 
       return (
-        <Button onPress={handleAdd}>
-          Add to Community
+        <Button onPress={handleRemove}>
+          REMOVE
         </Button>
       )
 
@@ -63,7 +48,7 @@ export function DeckSelectRender({ item, setSelectedDeck, selectedDeck}) {
 
 
 
-  export default function AddDeckSelect() {
+  export default function RemoveDeckSelect() {
     const guildCont = useContext(GuildContext);
     const [init, setInit] = new useState(false);
     const [dataToSend, setDataToSend] = new useState([]);
@@ -81,7 +66,7 @@ export function DeckSelectRender({ item, setSelectedDeck, selectedDeck}) {
       const {data, error} = await supabase
         .from('Decks')
         .select('*')
-        .not('id', 'in', guildCont.guild.quizzes)
+        .in('id', guildCont.guild.quizzes)
       if (error) {
           setErrMsg(error.message);
           console.log('error in obtaining decks')
