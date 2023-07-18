@@ -87,7 +87,45 @@ export function StartingPage() {
         keyExtractor={item => item.id}>
 
         </FlatList>
+        <Button onPress = {testfunc}>Upload</Button>
 
       </View>
     );
+}
+
+const TEST_CARDS = [
+  {
+    id: '44444444-3333-1111-1111-111111111111',
+    name: 'appTestWithDiffName',
+    front: 'frontApp1',
+    back: 'backApp1',
+    updated_at: '2023-07-04 21:06:28.134891+00'
+
+  },
+  {
+    id: '22222222-3333-1111-1111-111111111111',
+    name: 'appTest2',
+    front: 'frontApp2',
+    back: 'backApp2',
+    updated_at: '2023-07-04 21:06:28.134891+00'
+
+  }
+]
+
+const TEST_UUID = '12345678-1234-1234-1234-123456789abc'
+const TEST_TITLE = 'AppTest'
+const TEST_DESC = 'AppDesc'
+
+const testfunc = async () => {
+  let { data, error } = await supabase
+  .rpc('upload_card_array', {
+    cards: TEST_CARDS, 
+    deckid: TEST_UUID, 
+    description: TEST_DESC, 
+    title: TEST_TITLE
+  })
+
+if (error) console.error(error)
+else console.log(data)
+
 }
