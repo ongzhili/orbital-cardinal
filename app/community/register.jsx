@@ -2,12 +2,14 @@ import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { View } from "react-native";
 import { Text, TextInput, ActivityIndicator, Button } from 'react-native-paper';
+import { useRouter } from "expo-router";
 
 export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errMsg, setErrMsg] = useState('');
+    const router = useRouter();
 
     const handleSubmit = async () => {
         if (email == '') {
@@ -24,6 +26,8 @@ export default function Register() {
         if (error) {
             setErrMsg(error.message);
             return;
+        } else {
+            router.replace('./commHome')
         }
     }
 
