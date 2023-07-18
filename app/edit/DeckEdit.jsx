@@ -19,7 +19,7 @@ const OPTIONS = [
     id: 1,
     title: 'Add/Remove Cards',
     link: "./DeckCards",
-  }
+  },
 ]
 
 function Item( {item} ) { 

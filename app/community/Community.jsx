@@ -91,6 +91,25 @@ export default function Community() {
     const currentUser = useAuth();
     const router = useRouter();
     
+    const refreshGuild = async () => {
+        console.log("refreshGuild called")
+        
+        let { data, error } = await supabase
+        .from('Guilds')
+        .select("*")
+        .eq('Guild_ID', currentGuild.guild.Guild_ID)
+
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(data);
+            currentGuild.setGuild(data[0]);
+        }
+
+
+
+    }
+    
 
 
     const getOwnerName = async (ownerid) => {
@@ -117,7 +136,7 @@ export default function Community() {
             console.log('error in obtaining posts')
             console.log(error);
         } 
-        setRecentactivity(data);w
+        setRecentactivity(data);
         
       
     }
@@ -138,6 +157,7 @@ export default function Community() {
     }
 
     if (!init) {
+        refreshGuild();
         handleAllPosts(currentGuild.guild.Guild_ID);
         getOwnerName(currentGuild.guild.owner);
         setInit(true);

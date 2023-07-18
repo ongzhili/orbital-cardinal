@@ -42,5 +42,6 @@ new Promise(async () => {
   let card1 = await Card.makeCard("card1", "front1", "back1")
   let card2 = await Card.makeCard("card2", "front2", "back2")
   let deck = await Deck.makeDeck("deck1", "desc1")
+  console.log(card1)
   await deck.addCards(card1, card2)
 }).then(() => console.log("initialised"))

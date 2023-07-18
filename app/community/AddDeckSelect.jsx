@@ -78,15 +78,15 @@ export function DeckSelectRender({ item, setSelectedDeck, selectedDeck}) {
 
  
     const handleAllDecks = async () => {
-      const {data, error} = await supabase
-        .from('Decks')
-        .select('*')
-        .not('id', 'in', guildCont.guild.quizzes)
-      if (error) {
-          setErrMsg(error.message);
-          console.log('error in obtaining decks')
-          console.log(error);
-      } 
+
+      let { data, error } = await supabase
+      .rpc('get_deck_except_ids', {
+        ids: guildCont.guild.quizzes
+      })
+    
+    if (error) console.error(error)
+    else console.log(data)
+    
       console.log(data[0]);
       setDataToSend(data);
       

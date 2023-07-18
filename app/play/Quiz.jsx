@@ -27,6 +27,7 @@ export default function Quiz() {
   const [finished, setFinished] = useState(false)
   const [allowNext, setAllowNext] = useState(true)
 
+
   if (loading) {
     setLoading(false)
     deck.getCards().then(cards => setCards(cards))
