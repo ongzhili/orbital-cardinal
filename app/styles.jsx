@@ -96,7 +96,6 @@ export default styles = StyleSheet.create({
       marginVertical: 8,
       marginHorizontal: 40,
     },
-
     listHeader: {
       backgroundColor:'#D9D9D9',
       padding: 10,
@@ -127,7 +126,6 @@ export default styles = StyleSheet.create({
     joinButton: {
       color: '#D9D9D9',
       fontSize: 20,
-
     },
     bottomButtonContainer: {
       position: "absolute",
@@ -142,6 +140,7 @@ export default styles = StyleSheet.create({
       fontSize: 25,
       alignSelf: 'stretch',
       lineHeight: 30,
+      fontWeight: 'bold',
     },
     selectionDesc: {
       textAlign: 'center',
@@ -149,4 +148,81 @@ export default styles = StyleSheet.create({
       alignSelf: 'stretch',
       lineHeight: 30,
     },
+    inputContainer: {
+      marginVertical:5,
+    },
+    loginImage: {
+      flex: 0.05,
+      width: 400,
+      height: 400,
+      resizeMode: 'cover' ,
+      padding: 100,
+      marginVertical:30,
+    },
+    mainMenuContainer: {
+      flex: 1,
+      backgroundColor: '#18171a',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    mainMenuContainer2: {
+      flex: 1,
+      backgroundColor: '#18171a',
+      justifyContent: 'center'
+    },
+    promptText: {
+      fontSize: 20,
+      fontFamily: 'sans-serif-medium'
+    },
+    promptTextTitle: {
+      fontSize: 20,
+      fontFamily: 'sans-serif-medium'
+    },
+    loginButtonText: {
+      fontSize: 20,
+      color: '#ffffff'
+    },
+    loginCont: { 
+      padding: 15, 
+      backgroundColor: '#18171a',
+      flex: 1, 
+      justifyContent: 'center' 
+    },
+    errMsg: {
+      fontSize: 15,
+      marginTop: 5
+    },
+    guildInfoContainerTitle: {
+      fontSize: 25,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      backgroundColor:'#D9D9D9',
+      padding: 10,
+      marginVertical: 8,
+      marginHorizontal: 20,
+    },
+    guildInfoDescription: {
+      fontSize: 15,
+      backgroundColor:'#D9D9D9',
+      padding: 10,
+      marginVertical: 8,
+      marginHorizontal: 40,
+    },
+    quizContainer: {
+      backgroundColor: '#D9D9D9',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 50,
+      padding: 0,
+      marginHorizontal: 20,
+      marginVertical: 0,
+      borderRadius: 0,
+
+    },
+    quizButton: {
+      color: 'white',
+      fontSize: 20,
+      fontWeight: 'bold',
+      textAlign: 'center'
+    }
   });

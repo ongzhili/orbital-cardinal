@@ -62,7 +62,7 @@ export function OptionRender({ item, setDeck, selected, onSelect, quiz }) {
     };
   
     const handleLBClick = () => {
-      router.replace("./Leaderboard");
+      router.push("./Leaderboard");
     };
   
     const handleDeckPlayClick = () => {
