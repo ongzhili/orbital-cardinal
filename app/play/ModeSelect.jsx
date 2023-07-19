@@ -31,7 +31,6 @@ function Item( {item, onPress, router} ) {
         style = {styles.button}
         onPress = {() => {
           console.log(`ModeSelect - ${item.title}`)
-          console.log(item.next)
           onPress(item.next)
           router.push(item.link)
         }}

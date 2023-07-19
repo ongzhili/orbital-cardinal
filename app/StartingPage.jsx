@@ -20,12 +20,7 @@ const DATA = [
     id: '3',
     title: 'Community',
     link: "./community/commHome",
-  },
-  {
-    id: '4',
-    title: 'For Joe',
-    link: "./BrowseDecks",
-  },
+  }
 ];
 
 // Function used to render menu buttons
@@ -57,4 +52,22 @@ export function StartingPage() {
       </FlatList>
     </View>
   );
+}
+
+const testfunc = async () => {
+  let decks = await database.get('decks').query().fetch()
+  let deck = decks[0]
+  let cards = await deck.getCards()
+  cards = cards.map(card => {return {id: card.id, name: card.name, front: card.front, back: card.back, updated_at: card.updated_at}})
+  let { data, error } = await supabase
+    .rpc('upload_card_array', {
+      cards: cards, 
+      deckid: deck.id, 
+      description: deck.description, 
+      name: deck.name
+    })
+  
+  if (error) console.error(error)
+  else console.log(data)
+
 }

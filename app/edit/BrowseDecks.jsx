@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ChoiceRender } from "./community/browseGuilds";
+import { ChoiceRender } from "../community/browseGuilds";
 import { View, FlatList, StyleSheet, Text } from "react-native";
-import { supabase } from "../lib/supabase";
-import { Button, Card } from "react-native-paper";
-import { synchronize } from '@nozbe/watermelondb/sync'
-import { database } from "..";
+import { supabase } from "../../lib/supabase";
+import { Button } from "react-native-paper";
+import { Card, Deck } from "../../lib/model";
 
 
 
@@ -36,14 +35,11 @@ export function DeckDropDown({deck, cardArray, setCardArray}) {
 
     // Save to local DB.
     let arr = []
-    console.log("dfg")
     for (card of data) {
       arr.push(await Card.makeIfAbsent(card))
     }
-    console.log("asd")
     let dec = await Deck.update(deck)
-    console.log("123")
-    await dec.setCards(arr)
+    await dec.setCards(...arr)
   }
 
   /* Possibly add a check if the deck is local database already?

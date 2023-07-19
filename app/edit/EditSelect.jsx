@@ -28,7 +28,12 @@ const OPTIONS = [
   {
     id: 3,
     title: 'Edit Card',
-    link: ''
+    link: './CardEdit'
+  },
+  {
+    id: 4,
+    title: 'Get Online Decks',
+    link: './BrowseDecks'
   }
 ]
   

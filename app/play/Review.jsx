@@ -23,7 +23,10 @@ export default function Review() {
 
   if (loading) {
     setLoading(false)
-    deck.getCards().then(cards => setCards(cards))
+    deck.getCards().then(cards => {
+      console.log(cards)
+      setCards(cards)
+    })
   }
 
   return (
