@@ -16,26 +16,29 @@ export default function DeckBuild() {
   const router = useRouter()
 
   return (
-    <ScrollView>
+    <View style={styles.mainMenuContainer2}>
+      <Text style = {styles.guildInfoContainerTitle}>
+        Enter Deck info:
+      </Text>
       <Text style = {styles.title}>{"Name:"}</Text>
       <TextInput
-      placeholder='Name'
-      onChangeText={setName}
+        placeholder='Name'
+        onChangeText={setName}
       ></TextInput>
       <Text style = {styles.title}>{"Description:"}</Text>
       <TextInput
-      placeholder='Description'
-      onChangeText={setDesc}
+        placeholder='Description'
+        onChangeText={setDesc}
       ></TextInput>
       <Button
-      style = {styles.button}
-      onPress = {() => {
-        Deck.makeDeck(name, desc)
-        router.back()
-      }}
-      >
-        <Text style = {styles.title}>{"Create"}</Text>
+        style = {[styles.button, {borderRadius: 0}]}
+        onPress = {() => {
+          Deck.makeDeck(name, desc)
+          router.back()
+        }}
+        >
+        <Text style = {styles.headerTitle}>{"Create Deck"}</Text>
       </Button>
-    </ScrollView>
+    </View>
   )
 }

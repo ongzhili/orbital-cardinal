@@ -108,7 +108,7 @@ export default function Quiz() {
               </View>
             </ScrollView>
           : <View>
-              <Text style = {styles.title}>{`Your Score: ${numCorrect}/${cards.length}`}</Text>
+              <Text style = {styles.scoreValue}>{`Your Score: ${numCorrect}/${cards.length}`}</Text>
               <Button style = {styles.button} onPress = {router.back}>
                 <Text style = {styles.title}>{"Back"}</Text>
               </Button>

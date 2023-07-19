@@ -1,5 +1,4 @@
 import { View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, FlatList, Image } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
@@ -8,6 +7,7 @@ import { playCont } from '../DeckSelect';
 import { useContext } from 'react';
 import { useRouter } from "expo-router";
 import styles from "../styles"
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const OPTIONS = [
   {
@@ -29,15 +29,14 @@ function Item( {item, onPress, router} ) {
       <View style = {styles.button}>
         <Button 
         style = {styles.button}
+        labelStyle = {[styles.selectionTitle, {color: 'white'}]}
         onPress = {() => {
           console.log(`ModeSelect - ${item.title}`)
           onPress(item.next)
           router.push(item.link)
         }}
         >
-            <Text style = {styles.title}>
-                {item.title}
-            </Text>
+          {item.title}
         </Button>
       </View>
   )
@@ -48,7 +47,9 @@ export default function ModeSelect() {
   const router = useRouter()
 
   return (
-    <View>
+    <SafeAreaView>
+      <Image style = {styles.loginImage} source = {require('../../assets/adaptive-icon.png')}>
+      </Image>
       <FlatList
       data = {OPTIONS}
       renderItem = {({item}) => 
@@ -61,6 +62,6 @@ export default function ModeSelect() {
 
       </FlatList>
 
-    </View>
+    </SafeAreaView>
   );
 }

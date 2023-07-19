@@ -17,31 +17,37 @@ export default function CardBuild() {
   const router = useRouter()
 
   return (
-    <ScrollView>
+    <View style={styles.mainMenuContainer2}>
+      <Text style = {styles.guildInfoContainerTitle}>
+        Enter Card info:
+      </Text>
       <Text style = {styles.title}>{"Name:"}</Text>
       <TextInput
-      placeholder='Name'
-      onChangeText={setName}
+        style={[styles.inputContainer, {marginHorizontal: 15}]}
+        placeholder='Name'
+        onChangeText={setName}
       ></TextInput>
       <Text style = {styles.title}>{"Front:"}</Text>
       <TextInput
-      placeholder='Front'
-      onChangeText={setFront}
+        style={[styles.inputContainer, {marginHorizontal: 15}]}
+        placeholder='Front'
+        onChangeText={setFront}
       ></TextInput>
       <Text style = {styles.title}>{"Back:"}</Text>
       <TextInput
-      placeholder='Back'
-      onChangeText={setBack}
+        style = {[styles.inputContainer, {marginHorizontal: 15}]}
+        placeholder='Back'
+        onChangeText={setBack}
       ></TextInput>
       <Button
-      style = {styles.button}
+      style = {[styles.button, {borderRadius: 0}]}
       onPress = {() => {
         Card.makeCard(name, front, back)
         router.back()
       }}
       >
-        <Text style = {styles.title}>{"Create"}</Text>
+        <Text style = {styles.headerTitle}>{"Create Card"}</Text>
       </Button>
-    </ScrollView>
+    </View>
   )
 }

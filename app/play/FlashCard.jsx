@@ -8,9 +8,6 @@ import { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
-
-
-
 function FlashCard({ flashCard }) {
     const [flip, setFlip] = useState(false);
     const [correct, setCorrect] = useState('');

@@ -26,8 +26,9 @@ export default function DeckCards() {
   }
 
   return (
-    <View>
+    <SafeAreaView>
       <SelectMultiple
+      style = {{marginHorizontal: 10}}
       items = {cards}
       selectedItems={selected}
       onSelectionsChange={setSelected}
@@ -45,6 +46,6 @@ export default function DeckCards() {
           <Text style = {styles.title}>{"Save"}</Text>
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }

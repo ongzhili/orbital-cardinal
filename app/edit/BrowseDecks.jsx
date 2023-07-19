@@ -5,6 +5,7 @@ import { View, FlatList, StyleSheet, Text } from "react-native";
 import { supabase } from "../../lib/supabase";
 import { Button } from "react-native-paper";
 import { Card, Deck } from "../../lib/model";
+import styles from "../styles";
 
 
 
@@ -29,7 +30,7 @@ export function DeckDropDown({deck, cardArray, setCardArray}) {
       console.log(error)
     }
     else {
-      // At this point, data shoudl be
+      
       console.log(data);
     }
 
@@ -42,23 +43,11 @@ export function DeckDropDown({deck, cardArray, setCardArray}) {
     await dec.setCards(...arr)
   }
 
-  /* Possibly add a check if the deck is local database already?
-    - I think either: update or renders an unpressable 'Saved'
-  */
-  if (false) {
-    return (
-      <Button onPress={{}}>
-        Update
-      </Button>
-      
-    )
-  } else {
-    return (
-      <Button onPress={handleAdd}>
-        Save Deck
-      </Button>
-    )
-  }
+  return (
+    <Button mode="flat" buttonColor="#8f8f8f" labelStyle={styles.joinButton} onPress={handleAdd}>
+      Save Deck
+    </Button>
+  )
 
 }
 
@@ -107,21 +96,23 @@ export default function BrowseDecks() {
   }
   
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flexDirection: 'column', flex: 1}}>
       {/* This section renders the top container that informs you what you have selected*/}
-      <View style={styles.button2}>
+      <View style={styles.listHeader}>
 
         {/* 1st Text is title, 2nd text is description, but checks if description is too long and truncates accordingly */}
-        <Text style={styles.title}>{"Selected Deck: " + selectedDeck.title}</Text>
+        <Text style={styles.selectionTitle}>{"Selected Deck: " + selectedDeck.title}</Text>
         
-        <Text style={styles.desc}>{selectedDeck.description.length > MAX_DESCRIPTION_LENGTH
+        <Text style={styles.selectionDesc}>{selectedDeck.description.length > MAX_DESCRIPTION_LENGTH
           ? selectedDeck.description.substring(0, MAX_DESCRIPTION_LENGTH) + '...'
           : selectedDeck.description}
         </Text>
         {/* Dropdown option renders if you have selected a deck (i.e deckid not -1) */}
+        <View style={styles.bottomButtonContainer}>
         {selectedDeck.id !== -1 && (
           <DeckDropDown deck = {selectedDeck} cardArray = {cardArray} setCardArray = {setCardArray}/>
           )}
+        </View> 
       </View>
 
       <View>
@@ -138,47 +129,3 @@ export default function BrowseDecks() {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-    button: {
-      backgroundColor:'#D9D9D9',
-      padding: 10,
-      marginVertical: 8,
-      marginHorizontal: 40,
-
-    },
-    button2: {
-      backgroundColor:'#D9D9D9',
-      padding: 10,
-      marginVertical: 8,
-      marginHorizontal: 40,
-      
-
-    },
-      buttonSelected: {
-        backgroundColor:'red',
-        padding: 10,
-        marginVertical: 8,
-        marginHorizontal: 40,
-      },
-      title: {
-        textAlign: 'center',
-        fontSize: 25,
-        alignSelf: 'stretch',
-        lineHeight: 30,
-      },
-      desc: {
-        textAlign: 'center',
-        fontSize: 15,
-        alignSelf: 'stretch',
-        lineHeight: 30,
-      },
-    image: {
-      flex: 1,
-      width: 400,
-      height: 400,
-      resizeMode: 'stretch' ,
-      padding: 100,
-      marginVertical:20,
-    }
-  });

@@ -7,6 +7,7 @@ import { PlayContext } from '../../contexts/play';
 import { useContext } from 'react';
 import { useRouter } from "expo-router";
 import styles from '../styles'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const OPTIONS = [
   {
@@ -39,9 +40,9 @@ const OPTIONS = [
   
 function Item( {item, onPress, router} ) { 
   return (
-      <View style = {styles.button}>
+      <View style = {styles.button3}>
         <Button 
-        style = {styles.button}
+        style = {[styles.button, {borderRadius: 0}]}
         onPress = {() => {
           console.log(`ModeSelect - ${item.title}`)
           console.log(item.next)
@@ -49,7 +50,7 @@ function Item( {item, onPress, router} ) {
           router.push(item.link)
         }}
         >
-            <Text style = {styles.title}>
+            <Text style = {styles.selectionTitle}>
                 {item.title}
             </Text>
         </Button>
@@ -62,7 +63,9 @@ export default function EditSelect() {
   const router = useRouter()
   
   return (
-    <View>
+    <SafeAreaView>
+      <Image style = {styles.loginImage} source = {require('../../assets/adaptive-icon.png')}>
+      </Image>
       <FlatList
       data = {OPTIONS}
       renderItem = {({item}) => 
@@ -75,6 +78,6 @@ export default function EditSelect() {
 
       </FlatList>
 
-    </View>
+    </SafeAreaView>
   );
 }

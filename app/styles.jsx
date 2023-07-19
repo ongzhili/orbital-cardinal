@@ -85,6 +85,20 @@ export default styles = StyleSheet.create({
       marginVertical: 8,
       marginHorizontal: 40,
     },
+    button2: {
+      backgroundColor: '#D9D9D9',
+      padding: 0,
+      marginVertical: 3,
+      marginHorizontal: 40,
+    },
+    button3: {
+      backgroundColor: '#D9D9D9',
+      paddingVertical: 0,
+      paddingHorizontal: 0,
+      marginVertical: 8,
+      marginHorizontal: 35,
+      height: 75,
+    },
     buttonContainer: {
       alignSelf: 'flex-end',
       alignItems: 'center',
@@ -101,13 +115,14 @@ export default styles = StyleSheet.create({
       padding: 10,
       marginVertical: 8,
       marginHorizontal: 40,
-      flex : 0.35
+      flex : 0.35,
     },
     headerTitle: {
       textAlign: 'center',
       fontSize: 25,
       alignSelf: 'stretch',
       lineHeight: 30,
+      color: 'white'
     },
     headerDesc: {
       textAlign: 'center',
@@ -147,6 +162,7 @@ export default styles = StyleSheet.create({
       fontSize: 15,
       alignSelf: 'stretch',
       lineHeight: 30,
+      color: 'white'
     },
     inputContainer: {
       marginVertical:5,
@@ -267,4 +283,11 @@ export default styles = StyleSheet.create({
       marginTop: 5,
       marginBottom: 5,
     },
+    scoreValue: {
+      fontSize: 30,
+      marginBottom: 20,
+      marginTop: 20,
+      alignSelf: 'center',
+    },
+
   });

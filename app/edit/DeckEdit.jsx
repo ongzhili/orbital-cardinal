@@ -4,10 +4,12 @@ import { StyleSheet, FlatList, Image } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { PlayContext } from '../../contexts/play';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useRouter } from "expo-router";
 import styles from '../styles'
 import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAuth } from '../../contexts/auth';
 
 const OPTIONS = [
   {
@@ -24,7 +26,7 @@ const OPTIONS = [
 
 function Item( {item} ) { 
   return (
-      <View style = {styles.button}>
+      <View style = {[styles.button, {textAlign: 'center'}]}>
         <Link href= {item.link}>
           <Button style = {styles.button}>
               <Text style = {styles.title}>
@@ -38,18 +40,32 @@ function Item( {item} ) {
 
 export default function DeckEdit() {
   const deck = useContext(PlayContext).deck
+  const [errMsg, setErrMsg] = useState('');
+  const currentUser = useAuth();
+  console.log(currentUser);
 
   return (
-    <View>
-      <Text style = {styles.title}>{deck.name}</Text>
-      <Text style = {styles.title}>{deck.description}</Text>
-      <FlatList
-      data = {OPTIONS}
-      renderItem = {({item}) => 
-        <Item item = {item} />
-      }
-      keyExtractor={item => item.id}>
-      </FlatList>
-    </View>
+    <SafeAreaView>
+      <View>
+        <Text style = {styles.guildInfoContainerTitle}>{deck.name}</Text>
+        <Text style = {styles.selectionDesc}>{deck.description}</Text>
+        <FlatList
+        data = {OPTIONS}
+        renderItem = {({item}) => 
+          <Item item = {item} />
+        }
+        keyExtractor={item => item.id}>
+        </FlatList>
+        {/* This is to conditionally render button */}
+        {currentUser.user && <Button>Upload</Button>}
+        {/* Insert upload function here. */}
+        <Button
+          style = {[styles.button, {borderRadius: 0, }]}
+          labelStyle = {[styles.title,{color: 'white'}]}
+          onPress ={{}}
+        >Upload</Button>
+        {errMsg !== "" && <Text style = {styles.errMsg}>{"Error: " + errMsg}</Text>}
+      </View>
+    </SafeAreaView>
   );
 }

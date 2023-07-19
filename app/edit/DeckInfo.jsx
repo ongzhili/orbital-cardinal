@@ -18,29 +18,35 @@ export default function DeckInfo() {
   const router = useRouter()
 
   return (
-    <ScrollView>
+    <View style={styles.mainMenuContainer2}>
+      <Text style = {styles.guildInfoContainerTitle}>
+        Update Deck info:
+      </Text>
       <Text style = {styles.title}>{"Name:"}</Text>
       <TextInput
-      placeholder='Name'
-      onChangeText={setName}
-      defaultValue={deck.name}
+        style={[styles.inputContainer, {marginHorizontal: 15}]}
+        placeholder='Name'
+        onChangeText={setName}
+        defaultValue={deck.name}
       ></TextInput>
       <Text style = {styles.title}>{"Description:"}</Text>
       <TextInput
-      placeholder='Description'
-      onChangeText={setDesc}
-      defaultValue={deck.description}
+        style={[styles.inputContainer, {marginHorizontal: 15}]}
+        placeholder='Description'
+        onChangeText={setDesc}
+        defaultValue={deck.description}
+        multiline
       ></TextInput>
       <Button
-      style = {styles.button}
+      style = {[styles.button, {borderRadius: 0}]}
       onPress = {() => {
         deck.setName(name)
         deck.setDescription(desc)
         router.back()
       }}
       >
-        <Text style = {styles.title}>{"Save"}</Text>
+        <Text style = {styles.headerTitle}>{"Save"}</Text>
       </Button>
-    </ScrollView>
+    </View>
   )
 }
