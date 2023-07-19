@@ -217,12 +217,54 @@ export default styles = StyleSheet.create({
       marginHorizontal: 20,
       marginVertical: 0,
       borderRadius: 0,
-
+    },
+    quizContainer2: {
+      backgroundColor: '#D9D9D9',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 50,
+      padding: 0,
+      marginHorizontal: 20,
+      marginVertical: 5,
+      borderRadius: 0,
     },
     quizButton: {
       color: 'white',
       fontSize: 20,
       fontWeight: 'bold',
       textAlign: 'center'
-    }
+    },
+    descContainer: {
+      marginVertical: 5,
+      height: 100,
+    },
+    leaderboardPadding: {
+      paddingHorizontal: 50,
+    },
+    leaderboardPaddingHeader: {
+      paddingHorizontal: 50,
+      marginBottom: 10,
+    },    
+    column: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    score: {
+      marginBottom: 8.
+    },
+    scoreText: {
+      fontSize: 16,
+      fontWeight: 'bold'
+    },
+    scoreHeader: {
+      fontSize: 30,
+      fontWeight: 'bold',
+    },
+    dropdownContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      marginTop: 5,
+      marginBottom: 5,
+    },
   });
