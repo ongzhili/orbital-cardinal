@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { View, ScrollView, Dimensions } from 'react-native';
 import { Text, Button, TextInput } from 'react-native-paper';
 import { useContext, useState, useEffect } from 'react';
@@ -34,12 +33,12 @@ export default function GuildQuiz() {
 
   const handleAdd = async () => { 
     let { data, error } = await supabase
-        .rpc('fetch_test2', {
-            deckid: deck.id
+      .rpc('fetch_test2', {
+        deckid: deck.id
     })
 
     if (error) {
-        console.log(error)
+      console.log(error)
     }
     else {
     console.log(data);
@@ -50,13 +49,12 @@ export default function GuildQuiz() {
   // Handles Score submission, then router.backs.
 
   const handleScoreSubmission = async (score) => {
-    
     let { data, error } = await supabase
-        .rpc('submit_score', {
-            deckid: deck.id, 
-            guildid: guild.Guild_ID,
-            score: score, 
-            userid: currentUser.user.id
+      .rpc('submit_score', {
+        deckid: deck.id, 
+        guildid: guild.Guild_ID,
+        score: score, 
+        userid: currentUser.user.id
     })
 
     if (error) console.log(error)
@@ -71,7 +69,6 @@ export default function GuildQuiz() {
   }
 
   // Render
-
   return (
     <SafeAreaView>
       {
