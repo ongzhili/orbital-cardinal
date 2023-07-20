@@ -30,7 +30,7 @@ export default function Review() {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
       <ScrollView>
         {
           cards.length != 0 

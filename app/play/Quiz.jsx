@@ -34,7 +34,7 @@ export default function Quiz() {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
       {
         !finished
           ? <ScrollView> 

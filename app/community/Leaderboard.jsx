@@ -45,7 +45,7 @@ export default function Leaderboard() {
   }
   
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
       <View style={styles.leaderboardPaddingHeader}>
         <View style={styles.column}>
           <Text style={styles.scoreHeader}>User</Text>

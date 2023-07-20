@@ -63,7 +63,8 @@ export default function EditSelect() {
   const router = useRouter()
   
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
+      <View style = {{backgroundColor: '#18171a'}}>
       <Image style = {styles.loginImage} source = {require('../../assets/adaptive-icon.png')}>
       </Image>
       <FlatList
@@ -77,6 +78,7 @@ export default function EditSelect() {
       keyExtractor={item => item.id}>
 
       </FlatList>
+      </View>
 
     </SafeAreaView>
   );

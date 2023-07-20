@@ -96,7 +96,7 @@ export default function BrowseDecks() {
   }
   
   return (
-    <SafeAreaView style={{ flexDirection: 'column', flex: 1}}>
+    <SafeAreaView style = {{flex: 1, flexDirection: 'column', backgroundColor: '#18171a'}}>
       {/* This section renders the top container that informs you what you have selected*/}
       <View style={styles.listHeader}>
 

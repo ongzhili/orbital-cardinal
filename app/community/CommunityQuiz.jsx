@@ -149,7 +149,7 @@ export default function CommunityQuiz() {
 
   // Render
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
       <Text style = {styles.guildInfoContainerTitle}>
         Choose a Deck:
       </Text>

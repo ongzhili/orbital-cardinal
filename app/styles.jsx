@@ -24,6 +24,7 @@ export default styles = StyleSheet.create({
       marginBottom: 20,
       marginTop: 20,
       alignSelf: 'center',
+      color: 'white'
     },
     input: {
       marginBottom: 10,
@@ -80,19 +81,19 @@ export default styles = StyleSheet.create({
       flex: 1,
     },
     button: {
-      backgroundColor: '#D9D9D9',
+      backgroundColor: '#5c5b5b',
       padding: 10,
       marginVertical: 8,
       marginHorizontal: 40,
     },
     button2: {
-      backgroundColor: '#D9D9D9',
+      backgroundColor: '#5c5b5b',
       padding: 0,
       marginVertical: 3,
       marginHorizontal: 40,
     },
     button3: {
-      backgroundColor: '#D9D9D9',
+      backgroundColor: '#5c5b5b',
       paddingVertical: 0,
       paddingHorizontal: 0,
       marginVertical: 8,
@@ -111,7 +112,7 @@ export default styles = StyleSheet.create({
       marginHorizontal: 40,
     },
     listHeader: {
-      backgroundColor:'#D9D9D9',
+      backgroundColor:'#5c5b5b',
       padding: 10,
       marginVertical: 8,
       marginHorizontal: 40,
@@ -139,7 +140,7 @@ export default styles = StyleSheet.create({
       marginVertical:20,
     },
     joinButton: {
-      color: '#D9D9D9',
+      color: 'white',
       fontSize: 20,
     },
     bottomButtonContainer: {
@@ -148,7 +149,7 @@ export default styles = StyleSheet.create({
       left: 9,
       width: "100%",
       padding: 10,
-      backgroundColor: '#D9D9D9',
+      backgroundColor: '#5c5b5b',
     },
     selectionTitle: {
       textAlign: 'center',
@@ -156,6 +157,7 @@ export default styles = StyleSheet.create({
       alignSelf: 'stretch',
       lineHeight: 30,
       fontWeight: 'bold',
+      color: 'white'
     },
     selectionDesc: {
       textAlign: 'center',
@@ -192,7 +194,8 @@ export default styles = StyleSheet.create({
     },
     promptTextTitle: {
       fontSize: 20,
-      fontFamily: 'sans-serif-medium'
+      fontFamily: 'sans-serif-medium',
+      color: 'white'
     },
     loginButtonText: {
       fontSize: 20,
@@ -206,26 +209,29 @@ export default styles = StyleSheet.create({
     },
     errMsg: {
       fontSize: 15,
-      marginTop: 5
+      marginTop: 5,
+      color: 'white'
     },
     guildInfoContainerTitle: {
       fontSize: 25,
       fontWeight: 'bold',
       textAlign: 'center',
-      backgroundColor:'#D9D9D9',
+      backgroundColor:'#5c5b5b',
       padding: 10,
       marginVertical: 8,
       marginHorizontal: 20,
+      color: 'white'
     },
     guildInfoDescription: {
       fontSize: 15,
-      backgroundColor:'#D9D9D9',
+      backgroundColor:'#5c5b5b',
       padding: 10,
       marginVertical: 8,
       marginHorizontal: 40,
+      color: 'white'
     },
     quizContainer: {
-      backgroundColor: '#D9D9D9',
+      backgroundColor: '#5c5b5b',
       alignItems: 'center',
       justifyContent: 'center',
       height: 50,
@@ -235,7 +241,7 @@ export default styles = StyleSheet.create({
       borderRadius: 0,
     },
     quizContainer2: {
-      backgroundColor: '#D9D9D9',
+      backgroundColor: '#5c5b5b',
       alignItems: 'center',
       justifyContent: 'center',
       height: 50,
@@ -271,11 +277,13 @@ export default styles = StyleSheet.create({
     },
     scoreText: {
       fontSize: 16,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      color: 'white'
     },
     scoreHeader: {
       fontSize: 30,
       fontWeight: 'bold',
+      color: 'white'
     },
     dropdownContainer: {
       flexDirection: 'row',
@@ -288,6 +296,7 @@ export default styles = StyleSheet.create({
       marginBottom: 20,
       marginTop: 20,
       alignSelf: 'center',
+      color: 'white'
     },
 
   });

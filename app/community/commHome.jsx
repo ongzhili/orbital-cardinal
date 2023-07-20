@@ -67,7 +67,7 @@ export default function commHome() {
 
   // Render
   return (
-    <View>
+    <View style = {{flex: 1, backgroundColor: '#18171a'}}>
       <Image style = {styles.loginImage} source = {require('../../assets/adaptive-icon.png')}>
       </Image>
       <Text style ={[styles.selectionTitle, {fontFamily: 'sans-serif-medium', marginBottom: 20}]}>

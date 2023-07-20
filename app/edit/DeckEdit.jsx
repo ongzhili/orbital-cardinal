@@ -45,7 +45,7 @@ export default function DeckEdit() {
   console.log(currentUser);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
       <View>
         <Text style = {styles.guildInfoContainerTitle}>{deck.name}</Text>
         <Text style = {styles.selectionDesc}>{deck.description}</Text>

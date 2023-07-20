@@ -48,7 +48,7 @@ export default function DeckSelect({deck}) {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{ flex: 1, backgroundColor: '#18171a'}}>
       <View>
         <Text style = {styles.guildInfoContainerTitle}>
           Choose a Deck:

@@ -6,6 +6,7 @@ import { GuildContext } from '../../contexts/guild';
 import { useRouter } from 'expo-router';
 import { Button, TextInput } from 'react-native-paper';
 import styles from '../styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Page render
 export default function CreateGuild() {
@@ -59,6 +60,7 @@ export default function CreateGuild() {
   };
 
   return (
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
     <View style={[styles.mainMenuContainer2, {marginHorizontal: 20}]}>
       <Image style = {styles.loginImage} source = {require('../../assets/adaptive-icon.png')}>
       </Image>
@@ -87,20 +89,7 @@ export default function CreateGuild() {
           {"Create " + guildtitle + "!"}
       </Button>
     </View>
+    </SafeAreaView>
   );
 };
 
-const stylesb = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
-});

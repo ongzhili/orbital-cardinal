@@ -75,7 +75,7 @@ export default function GuildSelect({ guild }) {
   
   // Render
   return (
-    <SafeAreaView style={{ flexDirection: 'column', flex: 1}}>
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a', flexDirection: 'column'}}>
       <View style={styles.listHeader}>
         <Text style={styles.selectionTitle}>{"Selected Guild: " + selectedGuild.title}</Text>
         <Text style={styles.selectionDesc}>{selectedGuild.description.length > MAX_DESCRIPTION_LENGTH

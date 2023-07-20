@@ -70,7 +70,7 @@ export default function GuildQuiz() {
 
   // Render
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
       {
         !finished
           ? <ScrollView> 

@@ -29,7 +29,7 @@ export function PostRender({ item }) {
 
   return (
     <View style = {styles.guildInfoDescription}>
-      <Text>{display + " " + item.activity_type + " at " + date}</Text>
+      <Text style = {{color: 'white'}}>{display + " " + item.activity_type + " at " + date}</Text>
     </View>
     );
   }
@@ -173,7 +173,7 @@ export default function Community() {
 
   // Render
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
       <ScrollView>
         <Text style = {styles.guildInfoContainerTitle}>
           {currentGuild.guild.title}

@@ -47,7 +47,7 @@ export default function ModeSelect() {
   const router = useRouter()
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
       <Image style = {styles.loginImage} source = {require('../../assets/adaptive-icon.png')}>
       </Image>
       <FlatList

@@ -84,7 +84,7 @@ const DEFAULT_DECK = {
 
   
     return (
-      <SafeAreaView style={{ flexDirection: 'column' }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#18171a',flexDirection: 'column' }}>
         <View style={styles.guildInfoDescription}>
               <Text style={styles.selectionTitle}>{"Selected Deck: " + selectedDeck.title}</Text>
               <Text style={styles.selectionDesc}>{selectedDeck.description.length > MAX_DESCRIPTION_LENGTH

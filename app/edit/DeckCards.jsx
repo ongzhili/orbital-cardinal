@@ -26,9 +26,12 @@ export default function DeckCards() {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
       <SelectMultiple
-      style = {{marginHorizontal: 10}}
+      style = {{ marginHorizontal: 10}}
+      rowStyle = {{backgroundColor: '#18171a',}}
+      labelStyle = {{color: 'white'}}
+      checkboxStyle = {{backgroundColor: 'white'}}
       items = {cards}
       selectedItems={selected}
       onSelectionsChange={setSelected}
