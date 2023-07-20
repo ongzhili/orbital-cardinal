@@ -31,7 +31,7 @@ const OPTIONS = [
 
 function Item( {item, router, deck} ) { 
   return (
-      <View style = {[styles.button, {textAlign: 'center'}]}>
+      <View style = {[styles.button4, {textAlign: 'center'}]}>
         <Button 
           style = {styles.button4}
           onPress={async () => {
@@ -97,11 +97,12 @@ export default function DeckEdit() {
               cards: cards, 
               deckid: deck.id, 
               description: deck.description, 
-              name: deck.name,
+              title: deck.name,
               userid: currentUser.user.id
             })
             if (error) console.error(error)
             else console.log(data)
+            setLoading(true)
           }}
         >
           Upload
@@ -115,6 +116,7 @@ export default function DeckEdit() {
               deckid: deck.id
             })
             if (error) console.error(error)
+            router.back()
           }}
         >
           Remove Online
