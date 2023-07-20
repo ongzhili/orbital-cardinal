@@ -190,7 +190,8 @@ export default styles = StyleSheet.create({
     },
     promptText: {
       fontSize: 20,
-      fontFamily: 'sans-serif-medium'
+      fontFamily: 'sans-serif-medium',
+      color: 'white'
     },
     promptTextTitle: {
       fontSize: 20,

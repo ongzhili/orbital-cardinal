@@ -19,9 +19,11 @@ export default function LoginPage() {
   const handleSubmit = async () => {
     if (email == '') {
         setErrMsg('e-mail cannot be empty!');
+        return;
     }
     if (password == '') {
         setErrMsg('Password cannot be empty!')
+        return;
     }
     setLoading(true);
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
