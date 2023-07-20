@@ -26,7 +26,7 @@ const OPTIONS = [
 
 function Item( {item} ) { 
   return (
-      <View style = {[styles.button, {textAlign: 'center'}]}>
+      <View style = {styles.button4}>
         <Link href= {item.link}>
           <Button style = {styles.button}>
               <Text style = {styles.title}>

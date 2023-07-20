@@ -23,7 +23,7 @@ export default styles = StyleSheet.create({
       fontSize: 20,
       marginBottom: 20,
       marginTop: 20,
-      alignSelf: 'center',
+      textAlign: 'center',
       color: 'white'
     },
     input: {
@@ -99,6 +99,13 @@ export default styles = StyleSheet.create({
       marginVertical: 8,
       marginHorizontal: 35,
       height: 75,
+    },
+    button4: {
+      backgroundColor: '#5c5b5b',
+      paddingVertical: 10,
+      paddingHorizontal: 0,
+      marginVertical: 8,
+      marginHorizontal: 40,
     },
     buttonContainer: {
       alignSelf: 'flex-end',
