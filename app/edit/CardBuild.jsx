@@ -40,11 +40,11 @@ export default function CardBuild() {
         onChangeText={setBack}
       ></TextInput>
       <Button
-      style = {[styles.button, {borderRadius: 0}]}
-      onPress = {() => {
-        Card.makeCard(name, front, back)
-        router.back()
-      }}
+        style = {[styles.button, {borderRadius: 0}]}
+        onPress = {() => {
+          Card.makeCard(name, front, back)
+          router.back()
+        }}
       >
         <Text style = {styles.headerTitle}>{"Create Card"}</Text>
       </Button>

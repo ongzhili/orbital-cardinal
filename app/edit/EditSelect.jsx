@@ -29,7 +29,7 @@ const OPTIONS = [
   {
     id: 3,
     title: 'Edit Card',
-    link: './CardEdit'
+    link: './CardSelect'
   },
   {
     id: 4,

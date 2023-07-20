@@ -10,11 +10,12 @@ import styles from '../styles'
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../../contexts/auth';
+import { supabase } from "../../lib/supabase";
 
 const OPTIONS = [
   {
     id: 0,
-    title: 'Edit Deck Info',
+    title: 'Edit Info',
     link: "./DeckInfo",
   },
   {
@@ -22,18 +23,29 @@ const OPTIONS = [
     title: 'Add/Remove Cards',
     link: "./DeckCards",
   },
+  {
+    id: 2,
+    title: 'Delete'
+  }
 ]
 
-function Item( {item} ) { 
+function Item( {item, router, deck} ) { 
   return (
-      <View style = {styles.button4}>
-        <Link href= {item.link}>
-          <Button style = {styles.button}>
-              <Text style = {styles.title}>
-                  {item.title}
-              </Text>
-          </Button>
-        </Link>
+      <View style = {[styles.button, {textAlign: 'center'}]}>
+        <Button 
+          style = {styles.button4}
+          onPress={async () => {
+            if (item.id == 2) {
+              await deck.markAsDeleted()
+              router.back
+            } else
+              router.push(item.link)
+          }}
+        >
+            <Text style = {styles.title}>
+                {item.title}
+            </Text>
+        </Button>
       </View>
   )
 }
@@ -42,7 +54,20 @@ export default function DeckEdit() {
   const deck = useContext(PlayContext).deck
   const [errMsg, setErrMsg] = useState('');
   const currentUser = useAuth();
-  console.log(currentUser);
+  const router = useRouter()
+  const [owner, setOwner] = useState(null);
+  const [loading, setLoading] = useState(true)
+
+  async function load() {
+    setLoading(false)
+    let { data, error } = await supabase.rpc('get_deck_owner', {
+      deckid: deck.id
+    })
+    if (error) console.log(error)
+    else setOwner(data)
+  }
+
+  if (loading) load()
 
   return (
     <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
@@ -50,21 +75,50 @@ export default function DeckEdit() {
         <Text style = {styles.guildInfoContainerTitle}>{deck.name}</Text>
         <Text style = {styles.selectionDesc}>{deck.description}</Text>
         <FlatList
-        data = {OPTIONS}
-        renderItem = {({item}) => 
-          <Item item = {item} />
-        }
-        keyExtractor={item => item.id}>
-        </FlatList>
+          data = {OPTIONS}
+          renderItem = {({item}) => 
+            <Item 
+              item = {item} 
+              router = {router}
+              deck = {deck}
+            />
+          }
+          keyExtractor={item => item.id}
+        />
         {/* This is to conditionally render button */}
-        {currentUser.user && <Button>Upload</Button>}
-        {/* Insert upload function here. */}
+        {currentUser.user && 
         <Button
           style = {[styles.button, {borderRadius: 0, }]}
           labelStyle = {[styles.title,{color: 'white'}]}
-          onPress ={{}}
-        >Upload</Button>
-        {errMsg !== "" && <Text style = {styles.errMsg}>{"Error: " + errMsg}</Text>}
+          onPress ={async () => {
+            let cards = await deck.getCards()
+            cards = cards.map(card => {return {id: card.id, name: card.name, front: card.front, back: card.back, updated_at: card.updated_at}})
+            let { data, error } = await supabase.rpc('upload_card_array', {
+              cards: cards, 
+              deckid: deck.id, 
+              description: deck.description, 
+              name: deck.name,
+              userid: currentUser.user.id
+            })
+            if (error) console.error(error)
+            else console.log(data)
+          }}
+        >
+          Upload
+        </Button>}
+        {((currentUser.user) && (owner != null && owner == currentUser.user.id)) && 
+        <Button
+          style = {[styles.button, {borderRadius: 0, }]}
+          labelStyle = {[styles.title,{color: 'white'}]}
+          onPress={async () => {
+            let { data, error } = await supabase.rpc('delete_deck', {
+              deckid: deck.id
+            })
+            if (error) console.error(error)
+          }}
+        >
+          Remove Online
+        </Button>}
       </View>
     </SafeAreaView>
   );

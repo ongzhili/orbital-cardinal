@@ -1,50 +1,61 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, FlatList, Image } from 'react-native';
 import { Text, Button, TextInput } from 'react-native-paper';
 import { Link, useRouter } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { createContext, useContext, useEffect, useState } from "react";
-import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../styles'
-import { Deck } from '../../lib/model';
 import { PlayContext } from '../../contexts/play';
 
 export default function DeckInfo() {
-  const deck = useContext(PlayContext).deck
-  const [name, setName] = useState(deck.name)
-  const [desc, setDesc] = useState(deck.description)
+  const card = useContext(PlayContext).card
+  const [name, setName] = useState(card.name)
+  const [front, setFront] = useState(card.front)
+  const [back, setBack] = useState(card.back)
   const router = useRouter()
 
   return (
     <View style={styles.mainMenuContainer2}>
       <Text style = {styles.guildInfoContainerTitle}>
-        Update Deck info:
+        Update Card info:
       </Text>
       <Text style = {styles.title}>{"Name:"}</Text>
       <TextInput
         style={[styles.inputContainer, {marginHorizontal: 15}]}
         placeholder='Name'
         onChangeText={setName}
-        defaultValue={deck.name}
+        defaultValue={card.name}
       ></TextInput>
-      <Text style = {styles.title}>{"Description:"}</Text>
+      <Text style = {styles.title}>{"Front:"}</Text>
       <TextInput
         style={[styles.inputContainer, {marginHorizontal: 15}]}
-        placeholder='Description'
-        onChangeText={setDesc}
-        defaultValue={deck.description}
-        multiline
+        placeholder='Front'
+        onChangeText={setFront}
+        defaultValue={card.front}
+      ></TextInput>
+      <Text style = {styles.title}>{"Back:"}</Text>
+      <TextInput
+        style={[styles.inputContainer, {marginHorizontal: 15}]}
+        placeholder='Back'
+        onChangeText={setBack}
+        defaultValue={card.back}
       ></TextInput>
       <Button
         style = {[styles.button, {borderRadius: 0}]}
         onPress = {() => {
-          deck.setFields(name, desc)
+          card.setFields(name, front, back)
           router.back()
         }}
       >
         <Text style = {styles.headerTitle}>{"Save"}</Text>
+      </Button>
+      <Button
+        style = {[styles.button, {borderRadius: 0}]}
+        onPress = {async () => {
+          await card.markAsDeleted()
+          router.back()
+        }}
+      >
+        <Text style = {styles.headerTitle}>{"Delete"}</Text>
       </Button>
     </View>
   )

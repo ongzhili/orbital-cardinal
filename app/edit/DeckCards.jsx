@@ -21,7 +21,7 @@ export default function DeckCards() {
 
   if (loading) {
     setLoading(false)
-    database.get('cards').query().fetch().then(cards => setCards(cards.map(card => {return {label: card.name, value: card}})))
+    database.get('cards').query().fetch().then(cards => setCards(cards.map(card => {return {label: `${card.name} | ${card.front} | ${card.back}`, value: card}})))
     deck.getCards().then(cards => setSelected(cards.map(card => {return {label: card.name, value: card}})))
   }
 
