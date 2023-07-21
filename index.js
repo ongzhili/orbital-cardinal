@@ -34,13 +34,3 @@ export const database = new Database({
     Card, CardDeck, CardTag, Deck, Tag
   ],
 })
-
-// initialise some dummy data for watermelondb
-
-new Promise(async () => {
-  await database.write(async () => await database.unsafeResetDatabase());
-  let card1 = await Card.makeCard("card1", "front1", "back1")
-  let card2 = await Card.makeCard("card2", "front2", "back2")
-  let deck = await Deck.makeDeck("deck1", "desc1")
-  await deck.addCards(card1, card2)
-}).then(() => console.log("initialised"))

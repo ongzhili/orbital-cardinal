@@ -37,7 +37,7 @@ function Item( {item, router, deck} ) {
           onPress={async () => {
             if (item.id == 2) {
               await deck.markAsDeleted()
-              router.back
+              router.back()
             } else
               router.push(item.link)
           }}
