@@ -49,6 +49,7 @@ export default function GuildQuiz() {
   // Handles Score submission, then router.backs.
 
   const handleScoreSubmission = async (score) => {
+    console.log(score);
     let { data, error } = await supabase
       .rpc('submit_score', {
         deckid: deck.id, 
@@ -145,7 +146,7 @@ export default function GuildQuiz() {
             </ScrollView>
           : <View>
               <Text style = {styles.title}>{`Your Score: ${numCorrect}/${cards.length}`}</Text>
-              <Button style = {styles.button} onPress = {() => handleScoreSubmission(correct)}>
+              <Button style = {styles.button} onPress = {() => handleScoreSubmission(numCorrect)}>
                 <Text style = {styles.title}>{"Back"}</Text>
               </Button>
             </View>
