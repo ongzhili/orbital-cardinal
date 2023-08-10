@@ -32,6 +32,7 @@ export function DeckRender({ item, setDeck, nextPage, router }) {
   )
 }
 
+// Page to select a deck among those locally stored and store it in the play context
 export default function DeckSelect({deck}) {
   const [decks, setDecks] = useState([])
   const [loading, setLoading] = useState(true)
@@ -55,13 +56,15 @@ export default function DeckSelect({deck}) {
         </Text>
       </View>
       <FlatList
-      data = {decks}
-      renderItem = {({item}) => 
-        <DeckRender 
-        item = {item} 
-        setDeck = {playCont.setDeck} 
-        nextPage = {link}
-        router = {router}/>}
+        data = {decks}
+        renderItem = {({item}) => 
+          <DeckRender 
+            item = {item} 
+            setDeck = {playCont.setDeck} 
+            nextPage = {link}
+            router = {router}
+          />
+        }
         keyExtractor={item => item.name}>
       </FlatList>
     </SafeAreaView>

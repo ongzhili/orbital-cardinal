@@ -65,21 +65,20 @@ export default function EditSelect() {
   return (
     <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
       <View style = {{backgroundColor: '#18171a'}}>
-      <Image style = {styles.loginImage} source = {require('../../assets/adaptive-icon.png')}>
-      </Image>
-      <FlatList
-      data = {OPTIONS}
-      renderItem = {({item}) => 
-        <Item 
-        item = {item} 
-        onPress = {playCont.setLink}
-        router = {router}
-        />}
-      keyExtractor={item => item.id}>
-
-      </FlatList>
+        <Image style = {styles.loginImage} source = {require('../../assets/adaptive-icon.png')}>
+        </Image>
+        <FlatList
+          data = {OPTIONS}
+          renderItem = {({item}) => 
+            <Item 
+              item = {item} 
+              onPress = {playCont.setLink}
+              router = {router}
+            />
+          }
+          keyExtractor={item => item.id}>
+        </FlatList>
       </View>
-
     </SafeAreaView>
   );
 }

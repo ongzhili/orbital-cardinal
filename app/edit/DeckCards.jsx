@@ -28,23 +28,21 @@ export default function DeckCards() {
   return (
     <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
       <SelectMultiple
-      style = {{ marginHorizontal: 10}}
-      rowStyle = {{backgroundColor: '#18171a',}}
-      labelStyle = {{color: 'white'}}
-      checkboxStyle = {{backgroundColor: 'white'}}
-      items = {cards}
-      selectedItems={selected}
-      onSelectionsChange={setSelected}
+        style = {{ marginHorizontal: 10}}
+        rowStyle = {{backgroundColor: '#18171a',}}
+        labelStyle = {{color: 'white'}}
+        checkboxStyle = {{backgroundColor: 'white'}}
+        items = {cards}
+        selectedItems={selected}
+        onSelectionsChange={setSelected}
       />
-      <View
-      style = {styles.buttonContainer}
-      >
+      <View style = {styles.buttonContainer}>
         <Button
-        style = {styles.button}
-        onPress = {() => {
-          deck.setCards(...selected.map(item => item.value))
-          router.back()
-        }}
+          style = {styles.button}
+          onPress = {() => {
+            deck.setCards(...selected.map(item => item.value))
+            router.back()
+          }}
         >
           <Text style = {styles.title}>{"Save"}</Text>
         </Button>

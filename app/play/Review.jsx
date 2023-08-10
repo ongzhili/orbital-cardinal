@@ -42,11 +42,15 @@ export default function Review() {
               >
                 {/* Front */}
                 <View style = {styles.cardFace}>
-                  <Text style = {styles.cardText}> {flipRender ? cards[currentCard].back : cards[currentCard].front} </Text>
+                  <Text style = {styles.cardText}> 
+                    {flipRender ? cards[currentCard].back : cards[currentCard].front} 
+                  </Text>
                 </View>
                 {/* Back */}
                 <View style = {styles.cardFace}>
-                  <Text style = {styles.cardText}> {flipRender ? cards[currentCard].front : cards[currentCard].back} </Text>
+                  <Text style = {styles.cardText}> 
+                    {flipRender ? cards[currentCard].front : cards[currentCard].back} 
+                  </Text>
                 </View>
               </FlipCard>
             : null
@@ -63,11 +67,12 @@ export default function Review() {
                 router.back()
             }}
           >
-            <Text style = {styles.title}>{currentCard < cards.length - 1 ? "Next Card" : "Finish"}</Text>
+            <Text style = {styles.title}>
+              {currentCard < cards.length - 1 ? "Next Card" : "Finish"}
+            </Text>
           </Button>
         </View>
       </ScrollView>
-  </SafeAreaView>
-
+    </SafeAreaView>
   );
 }

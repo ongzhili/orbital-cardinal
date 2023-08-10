@@ -28,13 +28,13 @@ function Item( {item, onPress, router} ) {
   return (
       <View style = {styles.button}>
         <Button 
-        style = {styles.button}
-        labelStyle = {[styles.selectionTitle, {color: 'white'}]}
-        onPress = {() => {
-          console.log(`ModeSelect - ${item.title}`)
-          onPress(item.next)
-          router.push(item.link)
-        }}
+          style = {styles.button}
+          labelStyle = {[styles.selectionTitle, {color: 'white'}]}
+          onPress = {() => {
+            console.log(`ModeSelect - ${item.title}`)
+            onPress(item.next)
+            router.push(item.link)
+          }}
         >
           {item.title}
         </Button>
@@ -42,24 +42,24 @@ function Item( {item, onPress, router} ) {
   )
 }
 
+// Selects the play mode, and brings the users to the appropriate page
 export default function ModeSelect() {
   const playCont = usePlay()
   const router = useRouter()
 
   return (
     <SafeAreaView style = {{flex: 1, backgroundColor: '#18171a'}}>
-      <Image style = {styles.loginImage} source = {require('../../assets/adaptive-icon.png')}>
-      </Image>
+      <Image style = {styles.loginImage} source = {require('../../assets/adaptive-icon.png')}/>
       <FlatList
-      data = {OPTIONS}
-      renderItem = {({item}) => 
-        <Item 
-        item = {item} 
-        onPress = {playCont.setLink}
-        router = {router}
-        />}
-      keyExtractor={item => item.id}>
-
+        data = {OPTIONS}
+        renderItem = {({item}) => 
+          <Item 
+            item = {item} 
+            onPress = {playCont.setLink}
+            router = {router}
+          />
+        }
+        keyExtractor={item => item.id}>
       </FlatList>
 
     </SafeAreaView>
